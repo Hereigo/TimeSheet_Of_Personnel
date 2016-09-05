@@ -22,8 +22,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="btn btn-default">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="btn btn-default menu">@Html.ActionLink("About", "About", "Home")</li>
-                    <li class="btn btn-default">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="btn btn-default menu">@Html.ActionLink("Employees", "Index", "Employees")</li>
+                    <li class="btn btn-default menu">@Html.ActionLink("DayTypes", "Index", "DayTypes")</li>
+                    <li class="btn btn-default">@Html.ActionLink("CalendRecords", "Index", "CalendRecords")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">Доброго дня, @User.Identity.Name!</p>
             </div>

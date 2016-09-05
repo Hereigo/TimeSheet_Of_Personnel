@@ -1,0 +1,50 @@
+﻿@model TimeSheet_Of_Personnel.Models.DayType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DayType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DayTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SymbolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SymbolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SymbolNameLatin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SymbolNameLatin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkHours)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DayTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

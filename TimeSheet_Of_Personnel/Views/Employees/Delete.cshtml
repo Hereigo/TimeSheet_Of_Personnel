@@ -1,0 +1,80 @@
+﻿@model TimeSheet_Of_Personnel.Models.Employee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployPosition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployPosition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAWoman)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAWoman)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimesheetNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimesheetNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkEnd)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

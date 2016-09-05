@@ -1,0 +1,27 @@
+﻿=================================================================
+1. Install-Package jQuery.UI.Combined
+=================================================================
+2. REGISTER BUNDLES METHOD IN BundleConfig:
+
+// For JQuery-UI DataPicker
+bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+	"~/Scripts/jquery-ui-{version}.js",
+	"~/Scripts/a-datapicker-ua.js"));
+		
+bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
+	"~/Content/themes/base/all.css"));
+
+=================================================================
+3. AT THE TOP OF _Layout.cshtml:
+
+@Styles.Render("~/Content/css")
+<=  @Styles.Render("~/Content/jqueryui")
+@Scripts.Render("~/bundles/modernizr")
+
+=================================================================
+4. AT THE BOTTOM OF _Layout.cshtml:
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<=  @Scripts.Render("~/bundles/jqueryui")
+@RenderSection("scripts", required: false)

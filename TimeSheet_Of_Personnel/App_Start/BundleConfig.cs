@@ -23,9 +23,23 @@ namespace TimeSheet_Of_Personnel
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            // For JQuery-UI DataPicker
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                    "~/Scripts/jquery-ui-{version}.js",
+                    "~/Scripts/a-datapicker-ua.js"));
+            bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
+                      "~/Content/themes/base/all.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // TIME-SHEET BUNDLES FOR MONTH-VIEW :
+            bundles.Add(new ScriptBundle("~/bundles/monthView").Include(
+                      "~/Scripts/a-time-sheet.js"));
+
+            bundles.Add(new StyleBundle("~/Content/monthView").Include(
+                    "~/Content/a-time-sheet.css"));
         }
     }
 }

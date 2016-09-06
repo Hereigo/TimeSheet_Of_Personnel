@@ -9,6 +9,9 @@ namespace TimeSheet_Of_Personnel.Models
         public EDM_TimeSheet()
             : base("name=EDM_TimeSheet")
         {
+            // USE THIS FOR TEST SEEDING DB & VIEWING RESULTS :
+            // Database.SetInitializer(new EDM_TimeSheet_TEST_Initializer());
+
             Database.SetInitializer(new EDM_TimeSheet_Initializer());
         }
 
@@ -16,9 +19,4 @@ namespace TimeSheet_Of_Personnel.Models
         public virtual DbSet<DayType> DayTypes { get; set; }
         public virtual DbSet<CalendRecord> CalendRecords { get; set; }
     }
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }

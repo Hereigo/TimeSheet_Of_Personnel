@@ -139,6 +139,7 @@
     <Compile Include="Models\CalendRecord.cs" />
     <Compile Include="Models\DayType.cs" />
     <Compile Include="Models\EDM_TimeSheet.cs" />
+    <Compile Include="Models\EDM_TimeSheet_TEST_Initializer.cs" />
     <Compile Include="Models\EDM_TimeSheet_Initializer.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

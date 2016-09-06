@@ -12,6 +12,9 @@ namespace TimeSheet_Of_Personnel.Models
     public class Employee
     {
         [Key]
+        // Neccesary to set ID Manually! Because ID == TimeSheetNumber
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DisplayName("Таб. №")]
         public int EmployeeID { get; set; }
 
         [DisplayName("П.І.Б.")]
@@ -22,9 +25,6 @@ namespace TimeSheet_Of_Personnel.Models
 
         [DisplayName("жін.")]
         public bool IsAWoman { get; set; }
-
-        [DisplayName("Таб. №")]
-        public int TimesheetNum { get; set; }
 
         [DisplayName("Коментар")]
         public string Comment { get; set; }

@@ -46,7 +46,7 @@ namespace TimeSheet_Of_Personnel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,EmployeeName,EmployPosition,IsAWoman,TimesheetNum,Comment,WorkStart,WorkEnd")] Employee employee)
+        public ActionResult Create([Bind(Include = "EmployeeID,EmployeeName,EmployPosition,IsAWoman,Comment,WorkStart,WorkEnd")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace TimeSheet_Of_Personnel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeID,EmployeeName,EmployPosition,IsAWoman,TimesheetNum,Comment,WorkStart,WorkEnd")] Employee employee)
+        public ActionResult Edit([Bind(Include = "EmployeeID,EmployeeName,EmployPosition,IsAWoman,Comment,WorkStart,WorkEnd")] Employee employee)
         {
             if (ModelState.IsValid)
             {

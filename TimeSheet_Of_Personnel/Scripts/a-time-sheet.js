@@ -58,6 +58,7 @@
                         row.cells[j].style.color = "#adadad";
                         //row.cells[j].innerHTML = 8;
                     }
+                        // ALL these types are - VACATION !
                     else if ($.trim(row.cells[j].innerHTML).toLowerCase() == 'в') { vacations += 1; }
                     else if ($.trim(row.cells[j].innerHTML).toLowerCase() == 'ч') { vacations += 1; }
                     else if ($.trim(row.cells[j].innerHTML).toLowerCase() == 'бз') { vacations += 1; }

@@ -193,6 +193,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Git_Ignore_  = TO DO = .txt" />
     <Content Include="Git_Ignore__PUBLISH_!!!_.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -204,6 +205,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Git_Ignore_ConnString.config" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\a-datapicker-ua.js" />
     <Content Include="Scripts\a-datapicker-ua_HowTo.txt" />

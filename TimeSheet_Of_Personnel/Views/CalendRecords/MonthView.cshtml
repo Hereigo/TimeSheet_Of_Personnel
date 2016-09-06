@@ -6,12 +6,9 @@
 
 <link href="~/Content/a-time-sheet.css" rel="stylesheet" />
 
-<h2>MonthView</h2>
+<h2>@ViewBag.MonthDate.ToString("MMMM, yyyy")</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
+<br />
 
 <div class="well">
     <table id="monthViewTable" class="table">
@@ -54,8 +51,6 @@
             <th><span>Вих., свят. дні</span></th>
         </tr>
 
-
-
         @foreach (var item in Model)
         {
             <tr>
@@ -80,7 +75,6 @@
                     </td>
                 }
 
-
                 <td id="hrsInMth"></td>
                 <td id="daysInMth"></td>
                 <td></td>
@@ -90,17 +84,12 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id=item.EmploMonthRowID }) |
-                        @Html.ActionLink("Details", "Details", new { id=item.EmploMonthRowID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.EmploMonthRowID })
-                    </td>*@
             </tr>
         }
 
     </table>
 </div>
 
-@section mySpecificScripts{
+@section monthViewScripts{
     @Scripts.Render("~/bundles/monthView")
 }

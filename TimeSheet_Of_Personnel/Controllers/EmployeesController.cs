@@ -17,7 +17,7 @@ namespace TimeSheet_Of_Personnel.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            return View(db.Employees.ToList().OrderBy(e => e.EmployeeName));
         }
 
         // GET: Employees/Details/5

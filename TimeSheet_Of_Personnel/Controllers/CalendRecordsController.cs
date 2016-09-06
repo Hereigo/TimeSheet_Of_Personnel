@@ -14,6 +14,8 @@ namespace TimeSheet_Of_Personnel.Controllers
     {
         private EDM_TimeSheet db = new EDM_TimeSheet();
 
+        // public ActionResult SeedFirst
+
         public ActionResult MonthView()
         {
             // TODO:
@@ -21,6 +23,8 @@ namespace TimeSheet_Of_Personnel.Controllers
             // YEAR & MONTH FOR TESTS ONLY :
             int currYear = 2016;
             int currMonth = 7;
+
+            ViewBag.MonthDate = new DateTime(currYear, currMonth, 1);
 
             // GET ALL RECORDS FROM DB :
             // TODO:

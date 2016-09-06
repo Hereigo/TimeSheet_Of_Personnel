@@ -12,6 +12,8 @@ namespace TimeSheet_Of_Personnel.Models
     public class DayType
     {
         [Key]
+        // Neccesary to set ID Manually! Because ID is easy to write CalendRecors Manually.
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DayTypeID { get; set; }
 
         [DisplayName("День табелюється як :")]

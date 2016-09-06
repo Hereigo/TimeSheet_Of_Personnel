@@ -243,16 +243,16 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\DayTypes\Create.cshtml" />
-    <Content Include="Views\DayTypes\Delete.cshtml" />
-    <Content Include="Views\DayTypes\Details.cshtml" />
-    <Content Include="Views\DayTypes\Edit.cshtml" />
-    <Content Include="Views\DayTypes\Index.cshtml" />
     <Content Include="Views\CalendRecords\Create.cshtml" />
     <Content Include="Views\CalendRecords\Delete.cshtml" />
     <Content Include="Views\CalendRecords\Details.cshtml" />
     <Content Include="Views\CalendRecords\Edit.cshtml" />
     <Content Include="Views\CalendRecords\Index.cshtml" />
+    <Content Include="Views\DayTypes\Create.cshtml" />
+    <Content Include="Views\DayTypes\Delete.cshtml" />
+    <Content Include="Views\DayTypes\Details.cshtml" />
+    <Content Include="Views\DayTypes\Edit.cshtml" />
+    <Content Include="Views\DayTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

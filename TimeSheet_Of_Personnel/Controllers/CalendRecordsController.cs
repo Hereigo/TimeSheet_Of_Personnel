@@ -14,6 +14,65 @@ namespace TimeSheet_Of_Personnel.Controllers
     {
         private EDM_TimeSheet db = new EDM_TimeSheet();
 
+        public ActionResult MonthView()
+        {
+            // TODO:
+            // YEAR & MONTH FOR TESTS ONLY :
+            // YEAR & MONTH FOR TESTS ONLY :
+            int currYear = 2016;
+            int currMonth = 7;
+
+            // GET ALL RECORDS FROM DB :
+            // TODO:
+            // SET PERSONS & PEIODS FILTERS :
+            List<CalendRecord> calendRecords =
+                (db.CalendRecords.Include(c => c.Employee).Include(c => c.DayType)).ToList();
+
+            // TODO:
+            // REFACTOR ME!
+            // GET LIST OF ACTUAL EMPLOYEES :
+            var employeesList = (from c in calendRecords select c.Employee).Distinct();
+
+            // LIST OF oneEmploRow-s FOR VIEW :
+            var rows = new List<EmploMonthRow>();
+
+            foreach (Employee emp in employeesList)
+            {
+                // EMPTY ROW FOR MONTH OF ONE EMPLOYEE (size 28...31) :
+                string[] oneEmploRow = new string[DateTime.DaysInMonth(currYear, currMonth)];
+
+                // FILLING WHOLE ARRAY WITH DEFAULTS :
+                for (int i = 0; i < oneEmploRow.Length; i++) oneEmploRow[i] = "8";
+
+                // TODO :
+                // FILL WITH WEEKENDS & HOLOYDAYS !!!!!!!!!!!
+                // FILL WITH WEEKENDS & HOLOYDAYS !!!!!!!!!!!
+
+                // FILLING CELLS WITH DAYTYPE.VALUES FOR CURR EMPLOYEE :
+                List<CalendRecord> daysForCurrEmp = (from d in calendRecords
+                                                     where
+                            d.Employee.EmployeeName == emp.EmployeeName
+                                                  select d).ToList();
+
+
+                foreach (var day in daysForCurrEmp)
+                {
+                    oneEmploRow[day.CalendRecordName.Day - 1] = day.DayType.SymbolName;
+                }
+
+                var row = new EmploMonthRow()
+                {
+                    Employee = emp,
+                    MonthDays = oneEmploRow
+                };
+
+                rows.Add(row);
+            }
+
+            return View(rows);
+        }
+
+
         // GET: CalendRecords
         public ActionResult Index()
         {

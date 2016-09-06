@@ -3,6 +3,7 @@
 
 Git_Ignore_*
 EDM_TimeSheet_Initializer.cs
+favicon.ico
 
 # User-specific files
 *.suo

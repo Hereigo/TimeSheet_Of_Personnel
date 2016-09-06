@@ -1,0 +1,48 @@
+﻿#monthViewTable {
+    background-color: white;
+    font-family: Consolas;
+}
+
+.well {
+    padding: 3px;
+}
+
+tr, td, th {
+    border: solid 1px black;
+}
+
+td, th {
+    font-size: small;
+    width: 1px;
+    text-align: center;
+    vertical-align: central;
+}
+
+table tr:first-child {
+    background-color: rgb(209, 207, 207);
+}
+
+table td:nth-child(-n+2) {
+    text-align: left;
+}
+
+table, tr, td, th {
+    border: 1px solid #000;
+    position: relative;
+    padding: 0px;
+}
+
+    th span {
+        transform-origin: 0 50%;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+    }
+
+.table tbody > tr > th {
+    vertical-align: bottom;
+    font-size: small;
+}

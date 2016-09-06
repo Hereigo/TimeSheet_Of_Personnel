@@ -24,6 +24,9 @@
                     <li class="btn btn-default">@Html.ActionLink("ГОЛОВНА", "Index", "Home")</li>
                     <li class="btn btn-default menu">@Html.ActionLink("Працівники", "Index", "Employees")</li>
                     <li class="btn btn-default menu">@Html.ActionLink("Дні у табелі", "Index", "DayTypes")</li>
+
+                    <li class="btn btn-default">@Html.ActionLink("ПОТОЧНИЙ МІСЯЦЬ", "MonthView", "CalendRecords")</li>
+
                     <li class="btn btn-default">@Html.ActionLink("Записи по співробітникам", "Index", "CalendRecords")</li>
                 </ul>
                 <p class="nav navbar-text navbar-right">Доброго дня, @User.Identity.Name!</p>

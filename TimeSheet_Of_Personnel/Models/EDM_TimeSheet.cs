@@ -1,6 +1,8 @@
 namespace TimeSheet_Of_Personnel.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
     using System.Linq;
 
@@ -18,5 +20,15 @@ namespace TimeSheet_Of_Personnel.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<DayType> DayTypes { get; set; }
         public virtual DbSet<CalendRecord> CalendRecords { get; set; }
+        public virtual DbSet<EmploMonthRow> EmploMonthRows { get; set; }
+    }
+
+    [Table("HR_EmploMonthRow")]
+    public class EmploMonthRow
+    {
+        [Key]
+        public int EmploMonthRowID { get; set; }
+        public Employee Employee { get; set; }
+        public string[] MonthDays { get; set; }
     }
 }

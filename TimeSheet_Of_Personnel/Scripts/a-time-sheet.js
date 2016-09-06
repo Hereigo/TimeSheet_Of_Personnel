@@ -30,8 +30,6 @@
     // DO NOT WORK !!!!!!!!!
 
 
-
-
     // CELL VALUES COUNTERS :
     var table = document.getElementById("monthViewTable");
 

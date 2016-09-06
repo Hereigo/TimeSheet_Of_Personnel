@@ -28,15 +28,14 @@
             context.DayTypes.Add(new DayType { DayTypeID = 40, SymbolName = "п", SymbolNameLatin = "pr", DayTypeName = "Прогул", WorkHours = 0 });
             context.DayTypes.Add(new DayType { DayTypeID = 41, SymbolName = "по", SymbolNameLatin = "po", DayTypeName = "Відпустка по вагітності та Пологам", WorkHours = 0 });
             context.DayTypes.Add(new DayType { DayTypeID = 42, SymbolName = "до", SymbolNameLatin = "do", DayTypeName = "Відпустка для Догляду за дитиною до 3-го віку", WorkHours = 0 });
-            context.DayTypes.Add(new DayType { DayTypeID = 0, SymbolName = "-", SymbolNameLatin = "xx", DayTypeName = "Вже не (ще не) працює у цей день в ДІУ", WorkHours = 0 });
+            context.DayTypes.Add(new DayType { DayTypeID = 0, SymbolName = "-", SymbolNameLatin = "xx", DayTypeName = "Вже не (ще не) працює у цей день в організації", WorkHours = 0 });
 
             DateTime workStartDef = new DateTime(2016, 01, 01);
 
             context.Employees.Add(new Employee { EmployeeName = "Іванов І.І.", IsAWoman = false, EmployeeID = 101, EmployPosition = "Економіст", WorkStart = workStartDef });
             context.Employees.Add(new Employee { EmployeeName = "Сідорова С.С.", IsAWoman = true, EmployeeID = 102, EmployPosition = "Головний економіст", WorkStart = workStartDef });
-            context.Employees.Add(new Employee { EmployeeName = "Петров П.П.", IsAWoman = false, EmployeeID = 103, EmployPosition = "Начальник  відділу", WorkStart = workStartDef, Comment = "Прийнято 15.07.2016" });
+            context.Employees.Add(new Employee { EmployeeName = "Петров П.П.", IsAWoman = false, EmployeeID = 103, EmployPosition = "Начальник  відділу", WorkStart = new DateTime(2016,7,15), Comment = "Прийнято 15.07.2016" });
             context.Employees.Add(new Employee { EmployeeName = "Гривневкая Ю.А.", IsAWoman = true, EmployeeID = 104, EmployPosition = "Бухгалтер", WorkStart = workStartDef });
-
           
             context.SaveChanges();
 

@@ -1,0 +1,46 @@
+﻿@*@model List<string>*@
+
+@{
+    ViewBag.Title = "TEST";
+
+    Layout = null;
+
+    string[,] matrix = ViewBag.passedArray;
+}
+
+<style>
+    td {
+        border: solid 1px black;
+    }
+</style>
+
+<h2>TEST</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>№</th>
+        <th>П.І.Б.</th>
+        <th>Посада</th>
+        <th>ж</th>
+        <th>Таб.№</th>
+        @for (int i = 1; i < (ViewBag.columns) - 4; i++)
+            {
+            <th> @i </th>
+        }
+    </tr>
+
+    @for (int i = 0; i < ViewBag.rows; i++)
+    {
+        <tr>
+            @for (int k = 0; k < ViewBag.columns; k++)
+            {
+                <td>
+                    @ViewBag.passedArray[i, k]
+                </td>
+            }
+        </tr>
+    }
+</table>

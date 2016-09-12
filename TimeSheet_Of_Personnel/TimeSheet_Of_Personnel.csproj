@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -209,6 +210,7 @@
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\a-datapicker-ua.js" />
     <Content Include="Scripts\a-datapicker-ua_HowTo.txt" />
+    <Content Include="Scripts\a-time-sheet-OLD.js" />
     <Content Include="Scripts\a-time-sheet.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -259,6 +261,8 @@
     <Content Include="Views\DayTypes\Edit.cshtml" />
     <Content Include="Views\DayTypes\Index.cshtml" />
     <Content Include="Views\CalendRecords\MonthView.cshtml" />
+    <Content Include="Views\CalendRecords\TEST.cshtml" />
+    <Content Include="Views\CalendRecords\MonthView_2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

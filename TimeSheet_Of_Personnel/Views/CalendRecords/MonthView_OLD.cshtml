@@ -1,0 +1,96 @@
+﻿@model IEnumerable<TimeSheet_Of_Personnel.Models.EmploMonthRow>
+
+@{
+    ViewBag.Title = "MonthView";
+}
+
+<link href="~/Content/a-time-sheet.css" rel="stylesheet" />
+
+<h2>@ViewBag.MonthDate.ToString("MMMM, yyyy")</h2>
+
+<br />
+
+<div class="well">
+    <table id="monthViewTable" class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee.EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee.EmployPosition)
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.Employee.IsAWoman)</span>
+            </th>
+            <th>
+                <span>@Html.DisplayNameFor(model => model.Employee.EmployeeID)</span>
+            </th>
+
+            @*
+                TODO :
+                GET COUNT DAYS IN CURRENT MONTH HERE !!!
+                GET COUNT DAYS IN CURRENT MONTH HERE !!!
+                GET COUNT DAYS IN CURRENT MONTH HERE !!!
+            *@
+
+            @for (int i = 1; i < 32; i++)
+            {
+                <th>
+                    @i
+                </th>
+            }
+
+            <th><span>год. за міс.</span></th>
+            <th><span>днів</span></th>
+            <th><span>відпустка</span></th>
+            <th><span>відрядження</span></th>
+            <th><span>день відпоч.</span></th>
+            <th><span>нез'ясов. прич.</span></th>
+            <th><span>підвищ. кваіф.</span></th>
+            <th><span>хвороба</span></th>
+            <th><span>Вих., свят. дні</span></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="timeSheet"></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmployPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.IsAWoman)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmployeeID)
+                </td>
+
+                @for (int i = 0; i < (item.MonthDays.Length); i++)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonthDays[i])
+                    </td>
+                }
+
+                <td id="hrsInMth"></td>
+                <td id="daysInMth"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section monthViewScripts{
+    @Scripts.Render("~/bundles/monthView")
+}

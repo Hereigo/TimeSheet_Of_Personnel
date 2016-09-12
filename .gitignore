@@ -254,3 +254,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/TimeSheet_Of_Personnel/favicon.rar

@@ -1,12 +1,8 @@
-﻿
-.well {
-    padding: 5px;
-}
-
-tr, td, th {
+﻿tr, td, th {
     background-color: white;
     border: solid 1px black;
     text-align: center;
+    white-space: nowrap;
 }
 
     td:nth-child(2), td:nth-child(3) {
@@ -22,7 +18,7 @@ tr, td, th {
     th.rotate {
         /* Something you can count on */
         height: 130px;
-        white-space: nowrap;
+        
     }
 
         th.rotate > div {

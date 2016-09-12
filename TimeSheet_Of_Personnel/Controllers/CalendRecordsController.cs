@@ -14,30 +14,34 @@ namespace TimeSheet_Of_Personnel.Controllers
     {
         private EDM_TimeSheet db = new EDM_TimeSheet();
 
-        // public ActionResult SeedFirst
-
-        public ActionResult MonthView_2()
+        public ActionResult MonthView(int? year, int? month)
         {
-            // TODO:
-            // REFACTORE ME !!!!!!!
-            // REFACTORE ME !!!!!!!
+            int currYear = DateTime.Now.Year;
 
-            int currYear = 2016;
-            int currMonth = 7;
+            // TODO:
+            // TEMPORARY FOR TEST - MONTH -2
+            // TEMPORARY FOR TEST - MONTH -2
+            int currMonth = DateTime.Now.Month - 2;
+
+            if (year.HasValue && month.HasValue)
+            {
+                currYear = Convert.ToInt32(year);
+                currMonth = Convert.ToInt32(month);
+            }
 
             ViewBag.MonthDate = new DateTime(currYear, currMonth, 1);
 
             DateTime firstDayOfMonth = new DateTime(currYear, currMonth, 01);
-            DateTime lastDayOfMonth = new DateTime(currYear, currMonth, 31);
-
+            DateTime lastDayOfMonth = new DateTime(currYear, currMonth, DateTime.DaysInMonth(currYear, currMonth));
+#if DEBUG
+            List<Employee> actualEmployees = (from e in db.Employees orderby e.EmployeeName select e).Take(8).ToList();
+#else
+            List<Employee> actualEmployees = (from e in db.Employees orderby e.EmployeeName select e).ToList();
+#endif
             List<CalendRecord> actualCalRecords = (from r in db.CalendRecords
-                                                   from e in db.Employees
-                                                   where (e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth) &&
-                                                   r.CalendRecordName >= firstDayOfMonth &&
+                                                   where r.CalendRecordName >= firstDayOfMonth &&
                                                    r.CalendRecordName <= lastDayOfMonth
                                                    select r).ToList();
-
-            List<Employee> actualEmployees = (from rec in actualCalRecords select rec.Employee).Distinct().ToList();
 
             int daysInMon = DateTime.DaysInMonth(currYear, currMonth);
             // (daysInCurrMonth) + 1.Num + 2.Name + 3.Position + 4.IsWoman + 5.TimeSheetNum
@@ -46,42 +50,66 @@ namespace TimeSheet_Of_Personnel.Controllers
             // 5.неявк з незяс.прич., 6.підвищ.кваліфік., 7.хвороба, 8.Вихідні, святкові дні
             int lastColsShift = 8;
 
+            int colsCnt = daysInMon + firstColsShift + lastColsShift;
+
             int rowsCnt = actualEmployees.Count();
 
-            string[,] rows = new string[rowsCnt, (daysInMon + firstColsShift + lastColsShift)];
+            string[,] rows = new string[rowsCnt, colsCnt];
 
             // ADD ROWS :
             for (int row = 0; row < rowsCnt; row++)
             {
                 // FILL ROW WITH - "8"
-                for (int col = 0; col < firstColsShift + daysInMon + lastColsShift; col++)
+                for (int col = 0; col < firstColsShift + daysInMon; col++)
                 {
                     rows[row, col] = "8";
                 }
 
-                rows[row, 0] = row.ToString();
+                rows[row, 0] = (row + 1).ToString();
                 rows[row, 1] = actualEmployees[row].EmployeeName;
                 rows[row, 2] = actualEmployees[row].EmployPosition;
                 rows[row, 3] = actualEmployees[row].IsAWoman ? "+" : "";
                 rows[row, 4] = actualEmployees[row].EmployeeID.ToString();
 
+                // 1.Фактично відпрац. дні, 2.відпустка, 3.відрядження, 4.відгул, 
+                // 5.неявк з незяс.прич., 6.підвищ.кваліфік., 7.хвороба, 8.Вихідні, святкові дні
+                int factDays = 0;
+                int holydays = 0;
+                int workTrip = 0;
+                int dayOff = 0;
+                int unknown = 0;
+                int studying = 0;
+                int hospital = 0;
+                int weekends = 0;
+
                 foreach (CalendRecord rec in actualCalRecords.Where(e => e.EmployeeID == actualEmployees[row].EmployeeID))
                 {
                     // COLUMN WITH NUMBER OF DAY IN MONTH (with shift) = CALEND.RECORD WITH THE SAME DAY IN CURRENT MONTH
                     rows[row, rec.CalendRecordName.Day + firstColsShift - 1] = rec.DayType.SymbolName;
+
+                    // COUNT DIFFERENT TYPES OF NOT-WORKING-DAYS :
+                    if (rec.DayType.SymbolName == "до" || rec.DayType.SymbolName == "в")
+                    {
+                        holydays++;
+                    }
+                    // else if () { }
+                    // else if () { }
+                    // else if () { }
+
+                    if (holydays > 0) rows[row, colsCnt - 6] = holydays.ToString();
                 }
             }
 
             ViewBag.calendMatrix = rows;
             ViewBag.rows = rowsCnt;
-            ViewBag.columns = daysInMon + firstColsShift + lastColsShift;
+            ViewBag.columns = colsCnt;
 
             return View();
         }
 
 
 
-        public ActionResult MonthView()
+        public ActionResult MonthView_OLD()
         {
             // TODO:
             // YEAR & MONTH FOR TESTS ONLY :
@@ -122,7 +150,6 @@ namespace TimeSheet_Of_Personnel.Controllers
                                                      where
                             d.Employee.EmployeeName == emp.EmployeeName
                                                      select d).ToList();
-
 
                 foreach (var day in daysForCurrEmp)
                 {

@@ -52,12 +52,22 @@ namespace TimeSheet_Of_Personnel.Controllers
 
             int colsCnt = daysInMon + firstColsShift + lastColsShift;
 
-            int rowsCnt = actualEmployees.Count();
+            // PLUS ONE ROW FOR SUMMARY :
+            int rowsCnt = actualEmployees.Count() + 1;
 
             string[,] rows = new string[rowsCnt, colsCnt];
 
-            // ADD ROWS :
-            for (int row = 0; row < rowsCnt; row++)
+            int factDaysSum = 0;
+            int holydaysSum = 0;
+            int workTripSum = 0;
+            int dayOffSum = 0;
+            int unknownSum = 0;
+            int studyingSum = 0;
+            int hospitalSum = 0;
+            int weekendsSum = 0;
+
+            // MINUS ONE ROW FOR SUMMARY :
+            for (int row = 0; row < rowsCnt - 1; row++)
             {
                 // FILL ROW WITH - "8"
                 for (int col = 0; col < firstColsShift + daysInMon; col++)
@@ -96,9 +106,16 @@ namespace TimeSheet_Of_Personnel.Controllers
                     // else if () { }
                     // else if () { }
 
-                    if (holydays > 0) rows[row, colsCnt - 6] = holydays.ToString();
+                    if (holydays > 0)
+                    {
+                        rows[row, colsCnt - 6] = holydays.ToString();
+                    }
                 }
+                holydaysSum += holydays;
             }
+            // ADD SUMMARY :
+            rows[rowsCnt - 1, colsCnt - 6] = holydaysSum.ToString();
+
 
             ViewBag.calendMatrix = rows;
             ViewBag.rows = rowsCnt;

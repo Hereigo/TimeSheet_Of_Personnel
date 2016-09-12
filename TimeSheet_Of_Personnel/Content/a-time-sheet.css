@@ -1,4 +1,14 @@
-﻿tr, td, th {
+﻿.navbar-inverse .navbar-brand {
+    color: black;
+}
+
+table {
+    /* TODO REFACTOR - BUT SOMTIMES HELPS */
+    margin-left: -20px;
+    /* TODO REFACTOR - BUT SOMTIMES HELPS */
+}
+
+tr, td, th {
     background-color: white;
     border: solid 1px black;
     text-align: center;
@@ -11,14 +21,13 @@
     }
 
     td:nth-child(1), td:nth-child(1n+4) {
-        padding: 1px;
+        padding: 2px;
         text-align: center;
     }
 
     th.rotate {
         /* Something you can count on */
         height: 130px;
-        
     }
 
         th.rotate > div {
@@ -35,67 +44,3 @@
                 font-weight: normal;
                 padding: 0 10px;
             }
-
-
-
-/*#monthViewTable {
-    background-color: white;
-    font-family: Consolas;
-}
-
-.container {
-    background-color: grey;
-    width: 99%;
-    padding: 1px;
-}
-
-table {
-    background-color:green;
-    position: fixed;
-    margin-left:-200px;
-    width:1492px
-}
-
-tr, td, th {
-    border: solid 1px black;
-}
-
-.table > tbody > tr > td {
-    padding:1px;
-}
-
-td, th {
-    font-size: small;
-    width: 1px;
-    text-align: center;
-    vertical-align: central;
-}
-
-table tr:first-child {
-    background-color: rgb(209, 207, 207);
-}
-
-table td:nth-child(-n+2) {
-    text-align: left;
-}
-
-table, tr, td, th {
-    border: 1px solid #000;
-    position: relative;
-    padding: 0px;
-}
-
-    th span {
-        transform-origin: 0 50%;
-        transform: rotate(-90deg);
-        white-space: nowrap;
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-    }
-
-.table tbody > tr > th {
-    vertical-align: bottom;
-    font-size: small;
-}*/

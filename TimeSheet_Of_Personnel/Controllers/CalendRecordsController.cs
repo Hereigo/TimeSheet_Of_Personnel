@@ -69,6 +69,8 @@ namespace TimeSheet_Of_Personnel.Controllers
             int hospitalSum = 0;
             int weekendsSum = 0;
 
+            int isWomanSum = 0;
+
             // MINUS ONE ROW FOR SUMMARY :
             for (int row = 0; row < rowsCnt - 1; row++)
             {
@@ -83,6 +85,8 @@ namespace TimeSheet_Of_Personnel.Controllers
                 rows[row, 2] = actualEmployees[row].EmployPosition;
                 rows[row, 3] = actualEmployees[row].IsAWoman ? "+" : "";
                 rows[row, 4] = actualEmployees[row].EmployeeID.ToString();
+
+                if (actualEmployees[row].IsAWoman) isWomanSum++;
 
                 // 1.Фактично відпрац. дні, 2.відпустка, 3.відрядження, 4.відгул, 
                 // 5.неявк з незяс.прич., 6.підвищ.кваліфік., 7.хвороба, 8.Вихідні, святкові дні
@@ -118,7 +122,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             }
             // ADD SUMMARY :
             rows[rowsCnt - 1, colsCnt - 6] = holydaysSum.ToString();
-
+            rows[rowsCnt - 1, 3] = isWomanSum.ToString();
 
             ViewBag.calendMatrix = rows;
             ViewBag.rows = rowsCnt;

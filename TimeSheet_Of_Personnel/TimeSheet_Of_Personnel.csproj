@@ -196,6 +196,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Git_Ignore_  = TO DO = .txt" />
     <Content Include="Git_Ignore__PUBLISH_!!!_.xml" />
+    <Content Include="Git_Ignore__TO_DO_.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -247,22 +248,17 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
-    <Content Include="Views\Employees\Delete.cshtml" />
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\CalendRecords\Create.cshtml" />
-    <Content Include="Views\CalendRecords\Delete.cshtml" />
     <Content Include="Views\CalendRecords\Details.cshtml" />
     <Content Include="Views\CalendRecords\Edit.cshtml" />
     <Content Include="Views\CalendRecords\Index.cshtml" />
     <Content Include="Views\DayTypes\Create.cshtml" />
-    <Content Include="Views\DayTypes\Delete.cshtml" />
     <Content Include="Views\DayTypes\Details.cshtml" />
     <Content Include="Views\DayTypes\Edit.cshtml" />
     <Content Include="Views\DayTypes\Index.cshtml" />
-    <Content Include="Views\CalendRecords\MonthView_OLD.cshtml" />
-    <Content Include="Views\CalendRecords\TEST.cshtml" />
     <Content Include="Views\CalendRecords\MonthView.cshtml" />
   </ItemGroup>
   <ItemGroup>

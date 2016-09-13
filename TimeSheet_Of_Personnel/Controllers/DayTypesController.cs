@@ -89,31 +89,31 @@ namespace TimeSheet_Of_Personnel.Controllers
             return View(dayType);
         }
 
-        // GET: DayTypes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DayType dayType = db.DayTypes.Find(id);
-            if (dayType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dayType);
-        }
+        //// GET: DayTypes/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DayType dayType = db.DayTypes.Find(id);
+        //    if (dayType == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(dayType);
+        //}
 
-        // POST: DayTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DayType dayType = db.DayTypes.Find(id);
-            db.DayTypes.Remove(dayType);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: DayTypes/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    DayType dayType = db.DayTypes.Find(id);
+        //    db.DayTypes.Remove(dayType);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -2,15 +2,16 @@
 
 @{
     ViewBag.Title = "Index";
+
+    int cnt = 1;
 }
 
-<h2>Index</h2>
+<h2>Працівники :</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
+        <th></th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.EmployeeName)
         </th>
@@ -24,48 +25,55 @@
             @Html.DisplayNameFor(model => model.EmployPosition)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Comment)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.WorkStart)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.WorkEnd)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAWoman)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployPosition)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkEnd)
-        </td>
-        <td>
-            @Html.ActionLink("Редагувати", "Edit", new { id = item.EmployeeID })
-            @*| @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(cnt++).
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.EmployeeID }, new { @class = "glyphicon glyphicon-pencil" })
+                @*| @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })*@
-        </td>
-    </tr>
-}
-
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAWoman)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+        </tr>
+    }
 </table>
+
+<hr />
+
+<p>
+    @Html.ActionLink(" + Додати працівника", "Create", new { }, new { @class = "btn btn-default" })
+</p>

@@ -21,6 +21,9 @@ namespace TimeSheet_Of_Personnel.Controllers
             // TODO:
             // TEMPORARY FOR TEST - MONTH -2
             // TEMPORARY FOR TEST - MONTH -2
+            // TEMPORARY FOR TEST - MONTH -2
+            // TEMPORARY FOR TEST - MONTH -2
+
             int currMonth = DateTime.Now.Month - 2;
 
             if (year.HasValue && month.HasValue)
@@ -270,31 +273,31 @@ namespace TimeSheet_Of_Personnel.Controllers
             return View(calendRecord);
         }
 
-        // GET: CalendRecords/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CalendRecord calendRecord = db.CalendRecords.Find(id);
-            if (calendRecord == null)
-            {
-                return HttpNotFound();
-            }
-            return View(calendRecord);
-        }
+        //// GET: CalendRecords/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CalendRecord calendRecord = db.CalendRecords.Find(id);
+        //    if (calendRecord == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(calendRecord);
+        //}
 
-        // POST: CalendRecords/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            CalendRecord calendRecord = db.CalendRecords.Find(id);
-            db.CalendRecords.Remove(calendRecord);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: CalendRecords/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    CalendRecord calendRecord = db.CalendRecords.Find(id);
+        //    db.CalendRecords.Remove(calendRecord);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

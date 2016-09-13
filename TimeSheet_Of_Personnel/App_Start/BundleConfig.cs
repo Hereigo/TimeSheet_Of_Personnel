@@ -8,6 +8,9 @@ namespace TimeSheet_Of_Personnel
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // IF ENABLE THIS - JQ-DATA-PICKER CAN NOT ACHIEVE ITS STYLES
+            BundleTable.EnableOptimizations = false;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -27,6 +30,7 @@ namespace TimeSheet_Of_Personnel
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                     "~/Scripts/jquery-ui-{version}.js",
                     "~/Scripts/a-datapicker-ua.js"));
+
             bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
                       "~/Content/themes/base/all.css"));
 

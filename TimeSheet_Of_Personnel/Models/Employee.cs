@@ -31,12 +31,12 @@ namespace TimeSheet_Of_Personnel.Models
 
         [DisplayName("Прийнято")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime WorkStart { get; set; }
 
         [DisplayName("Звільнено")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? WorkEnd { get; set; }
     }
 }

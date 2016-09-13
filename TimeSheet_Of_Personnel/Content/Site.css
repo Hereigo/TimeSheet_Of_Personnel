@@ -32,10 +32,15 @@ textarea {
     margin: 10px 5px;
 }
 
+.navbar-inverse .navbar-brand {
+    font-size: x-large;
+    color: #000;
+}
+
 .navbar-inverse .navbar-nav > li > a {
     color: #7D7D7D;
     font-weight: 600;
-    padding: 4px;
+    padding: 0px;
 }
 
     .navbar-inverse .navbar-nav > li > a:hover {

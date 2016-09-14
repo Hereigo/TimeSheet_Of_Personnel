@@ -37,7 +37,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             DateTime firstDayOfMonth = new DateTime(currYear, currMonth, 01);
             DateTime lastDayOfMonth = new DateTime(currYear, currMonth, DateTime.DaysInMonth(currYear, currMonth));
 #if DEBUG
-            List<Employee> actualEmployees = (from e in db.Employees orderby e.EmployeeName select e).Take(8).ToList();
+            List<Employee> actualEmployees = (from e in db.Employees orderby e.EmployeeName select e).Take(12).ToList();
 #else
             List<Employee> actualEmployees = (from e in db.Employees orderby e.EmployeeName select e).ToList();
 #endif
@@ -105,24 +105,62 @@ namespace TimeSheet_Of_Personnel.Controllers
                     rows[row, rec.CalendRecordName.Day + firstColsShift - 1] = rec.DayType.SymbolName;
 
                     // COUNT DIFFERENT TYPES OF NOT-WORKING-DAYS :
-                    if (rec.DayType.SymbolName == "до" || rec.DayType.SymbolName == "в")
+                    if (rec.DayType.SymbolName == "в" ||
+                        rec.DayType.SymbolName == "ч" ||
+                        rec.DayType.SymbolName == "вп" ||
+                        rec.DayType.SymbolName == "бз" ||
+                        rec.DayType.SymbolName == "дд" ||
+                        rec.DayType.SymbolName == "вп" ||
+                        rec.DayType.SymbolName == "по" ||
+                        rec.DayType.SymbolName == "зс" ||
+                        rec.DayType.SymbolName == "до"
+                        )
                     {
                         holydays++;
                     }
-                    // else if () { }
+                    else if (rec.DayType.SymbolName == "н")
+                    {
+                        studying++;
+                    }
+                    //else if (rec.DayType.SymbolName == "нз")
+                    //{
+                    //    unknown++;
+                    //}
+                    else if (rec.DayType.SymbolName == "нз")
+                    {
+                        unknown++;
+                    }
                     // else if () { }
                     // else if () { }
 
-                    if (holydays > 0)
-                    {
-                        rows[row, colsCnt - 6] = holydays.ToString();
-                    }
+                    if (holydays > 0) rows[row, colsCnt - 7] = holydays.ToString();
+                    if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();
+                    if (dayOff > 0) rows[row, colsCnt - 5] = dayOff.ToString();
+                    if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();
+                    if (studying > 0) rows[row, colsCnt - 3] = studying.ToString();
+                    if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();
                 }
+
+                factDaysSum += factDays;
                 holydaysSum += holydays;
+                workTripSum += workTrip;
+                dayOffSum += dayOff;
+                unknownSum += unknown;
+                studyingSum += studying;
+                hospitalSum += hospital;
+                weekendsSum += weekends;
             }
             // ADD SUMMARY :
-            rows[rowsCnt - 1, colsCnt - 6] = holydaysSum.ToString();
             rows[rowsCnt - 1, 3] = isWomanSum.ToString();
+
+            rows[rowsCnt - 1, colsCnt - 7] = holydaysSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 6] = workTripSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 5] = dayOffSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 4] = unknownSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 3] = studyingSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 2] = hospitalSum.ToString();
+
+
 
             ViewBag.calendMatrix = rows;
             ViewBag.rows = rowsCnt;

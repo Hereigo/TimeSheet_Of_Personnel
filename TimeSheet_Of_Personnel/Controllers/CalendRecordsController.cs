@@ -34,8 +34,10 @@ namespace TimeSheet_Of_Personnel.Controllers
 
             ViewBag.MonthDate = new DateTime(currYear, currMonth, 1);
 
+            int daysInMon = DateTime.DaysInMonth(currYear, currMonth);
+
             DateTime firstDayOfMonth = new DateTime(currYear, currMonth, 01);
-            DateTime lastDayOfMonth = new DateTime(currYear, currMonth, DateTime.DaysInMonth(currYear, currMonth));
+            DateTime lastDayOfMonth = new DateTime(currYear, currMonth, daysInMon);
 #if DEBUG
             List<Employee> actualEmployees = (from e in db.Employees orderby e.EmployeeName select e).Take(12).ToList();
 #else
@@ -46,7 +48,6 @@ namespace TimeSheet_Of_Personnel.Controllers
                                                    r.CalendRecordName <= lastDayOfMonth
                                                    select r).ToList();
 
-            int daysInMon = DateTime.DaysInMonth(currYear, currMonth);
             // (daysInCurrMonth) + 1.Num + 2.Name + 3.Position + 4.IsWoman + 5.TimeSheetNum
             int firstColsShift = 5;
             // 1.Фактично відпрац. дні, 2.відпустка, 3.відрядження, 4.відгул, 
@@ -88,9 +89,15 @@ namespace TimeSheet_Of_Personnel.Controllers
 
                 if (actualEmployees[row].IsAWoman) isWomanSum++;
 
+                // TODO:
+                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                int factDays = daysInMon;
+                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+
                 // 1.Фактично відпрац. дні, 2.відпустка, 3.відрядження, 4.відгул, 
                 // 5.неявк з незяс.прич., 6.підвищ.кваліфік., 7.хвороба, 8.Вихідні, святкові дні
-                int factDays = 0;
                 int holydays = 0;
                 int workTrip = 0;
                 int dayOff = 0;
@@ -117,10 +124,12 @@ namespace TimeSheet_Of_Personnel.Controllers
                         )
                     {
                         holydays++;
+                        factDays--;
                     }
                     else if (rec.DayType.SymbolName == "н")
                     {
                         studying++;
+                        factDays--;
                     }
                     //else if (rec.DayType.SymbolName == "нз")
                     //{
@@ -129,9 +138,12 @@ namespace TimeSheet_Of_Personnel.Controllers
                     else if (rec.DayType.SymbolName == "нз")
                     {
                         unknown++;
+                        factDays--;
                     }
                     // else if () { }
                     // else if () { }
+
+
 
                     if (holydays > 0) rows[row, colsCnt - 7] = holydays.ToString();
                     if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();
@@ -140,6 +152,8 @@ namespace TimeSheet_Of_Personnel.Controllers
                     if (studying > 0) rows[row, colsCnt - 3] = studying.ToString();
                     if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();
                 }
+
+                if (true) rows[row, colsCnt - 8] = factDays.ToString();
 
                 factDaysSum += factDays;
                 holydaysSum += holydays;
@@ -153,6 +167,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             // ADD SUMMARY :
             rows[rowsCnt - 1, 3] = isWomanSum.ToString();
 
+            rows[rowsCnt - 1, colsCnt - 8] = factDaysSum.ToString();
             rows[rowsCnt - 1, colsCnt - 7] = holydaysSum.ToString();
             rows[rowsCnt - 1, colsCnt - 6] = workTripSum.ToString();
             rows[rowsCnt - 1, colsCnt - 5] = dayOffSum.ToString();

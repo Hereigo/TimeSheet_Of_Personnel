@@ -19,13 +19,15 @@
             <th class="rotate"><div><span>жінка</span></div></th>
             <th class="rotate"><div><span>Табельний №</span></div></th>
 
-            @for (int i = 1; i < (ViewBag.columns) - 12; i++)
+            @for (int i = 1; i < (ViewBag.columns) - 14; i++)
             {
                 <th> <br /><br /><br /><br /><br /> @i </th>
             }
 
             <th class="rotate"><div><span>фактично відпрац.</span></div></th>
             <th class="rotate"><div><span>відпустка</span></div></th>
+            <th class="rotate"><div><span>відп.(вагіт./дог.дит)</span></div></th>
+            <th class="rotate"><div><span>відп. (не оплачув.)</span></div></th>
             <th class="rotate"><div><span>відрядження</span></div></th>
             <th class="rotate"><div><span>відгул</span></div></th>
             <th class="rotate"><div><span>неявк з незяс.прич.</span></div></th>

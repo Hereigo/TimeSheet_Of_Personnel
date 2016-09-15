@@ -21,10 +21,9 @@ namespace TimeSheet_Of_Personnel.Controllers
             // TODO:
             // TEMPORARY FOR TEST - MONTH -2
             // TEMPORARY FOR TEST - MONTH -2
-            // TEMPORARY FOR TEST - MONTH -2
-            // TEMPORARY FOR TEST - MONTH -2
-
             int currMonth = DateTime.Now.Month - 2;
+            // TEMPORARY FOR TEST - MONTH -2
+            // TEMPORARY FOR TEST - MONTH -2
 
             if (year.HasValue && month.HasValue)
             {
@@ -48,13 +47,24 @@ namespace TimeSheet_Of_Personnel.Controllers
                                                    r.CalendRecordName <= lastDayOfMonth
                                                    select r).ToList();
 
-            // (daysInCurrMonth) + 1.Num + 2.Name + 3.Position + 4.IsWoman + 5.TimeSheetNum
+            // (daysInCurrMonth) 
+            // + 1.Num + 2.Name + 3.Position + 4.IsWoman + 5.TimeSheetNum
             int firstColsShift = 5;
-            // 1.Фактично відпрац. дні, 2.відпустка, 3.відрядження, 4.відгул, 
-            // 5.неявк з незяс.прич., 6.підвищ.кваліфік., 7.хвороба, 8.Вихідні, святкові дні
-            int lastColsShift = 8;
 
-            int colsCnt = daysInMon + firstColsShift + lastColsShift;
+            //-10. Фактично відпрац.
+            // -9. Відпустка    -   В, Ч, Н, ДД
+            // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
+            // -7. Відп.(не оплач) - НБ, БЗ, ЗС
+            // -6. Відрядження - ВД
+            // -5. Відгул   -   ДВ
+            // -4. Незясовано - НЗ
+            // -3. Семінар/підвищ.кваліф. - С
+            // -2. Хвороба - ТН, НН
+            // -1. Вихідні, святкові дні
+
+            int shiftFromEnd = 10;
+
+            int colsCnt = firstColsShift + daysInMon + shiftFromEnd;
 
             // PLUS ONE ROW FOR SUMMARY :
             int rowsCnt = actualEmployees.Count() + 1;
@@ -63,10 +73,12 @@ namespace TimeSheet_Of_Personnel.Controllers
 
             int factDaysSum = 0;
             int holydaysSum = 0;
+            int holyChildSum = 0;
+            int holyFreeSum = 0;
             int workTripSum = 0;
             int dayOffSum = 0;
             int unknownSum = 0;
-            int studyingSum = 0;
+            int seminarSum = 0;
             int hospitalSum = 0;
             int weekendsSum = 0;
 
@@ -78,7 +90,24 @@ namespace TimeSheet_Of_Personnel.Controllers
                 // FILL ROW WITH - "8"
                 for (int col = 0; col < firstColsShift + daysInMon; col++)
                 {
-                    rows[row, col] = "8";
+                    // TODO:
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!                
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+
+                    //DateTime dt = new DateTime(currYear, currMonth, col);
+
+                    //if (dt == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    //{
+                    //    rows[row, col] = "#";
+                    //}
+                    //else
+                    //{
+                        rows[row, col] = "8";
+                    //}
+
+                    
                 }
 
                 rows[row, 0] = (row + 1).ToString();
@@ -96,13 +125,13 @@ namespace TimeSheet_Of_Personnel.Controllers
                 // DO NOT FORGET ABOUT HOLYDAYS !!!!!
                 // DO NOT FORGET ABOUT HOLYDAYS !!!!!
 
-                // 1.Фактично відпрац. дні, 2.відпустка, 3.відрядження, 4.відгул, 
-                // 5.неявк з незяс.прич., 6.підвищ.кваліфік., 7.хвороба, 8.Вихідні, святкові дні
                 int holydays = 0;
+                int holyChild = 0;
+                int holyFree = 0;
                 int workTrip = 0;
                 int dayOff = 0;
                 int unknown = 0;
-                int studying = 0;
+                int seminar = 0;
                 int hospital = 0;
                 int weekends = 0;
 
@@ -114,65 +143,99 @@ namespace TimeSheet_Of_Personnel.Controllers
                     // COUNT DIFFERENT TYPES OF NOT-WORKING-DAYS :
                     if (rec.DayType.SymbolName == "в" ||
                         rec.DayType.SymbolName == "ч" ||
-                        rec.DayType.SymbolName == "вп" ||
-                        rec.DayType.SymbolName == "бз" ||
-                        rec.DayType.SymbolName == "дд" ||
-                        rec.DayType.SymbolName == "вп" ||
-                        rec.DayType.SymbolName == "по" ||
-                        rec.DayType.SymbolName == "зс" ||
-                        rec.DayType.SymbolName == "до"
-                        )
+                        rec.DayType.SymbolName == "н" ||
+                        rec.DayType.SymbolName == "дд")
                     {
                         holydays++;
                         factDays--;
                     }
-                    else if (rec.DayType.SymbolName == "н")
+                    else if (rec.DayType.SymbolName == "вп" ||
+                            rec.DayType.SymbolName == "до")
                     {
-                        studying++;
+                        holyChild++;
                         factDays--;
                     }
-                    //else if (rec.DayType.SymbolName == "нз")
-                    //{
-                    //    unknown++;
-                    //}
+                    else if (rec.DayType.SymbolName == "бз" ||
+                            rec.DayType.SymbolName == "нб" ||
+                            rec.DayType.SymbolName == "зс"
+                            )
+                    {
+                        holyFree++;
+                        factDays--;
+                    }
+                    else if (rec.DayType.SymbolName == "вд")
+                    {
+                        workTrip++;
+                        factDays--;
+                    }
+                    else if (rec.DayType.SymbolName == "дв")
+                    {
+                        dayOff++;
+                        factDays--;
+                    }
                     else if (rec.DayType.SymbolName == "нз")
                     {
                         unknown++;
                         factDays--;
                     }
-                    // else if () { }
-                    // else if () { }
+                    else if (rec.DayType.SymbolName == "с")
+                    {
+                        seminar++;
+                        factDays--;
+                    }
+                    else if (rec.DayType.SymbolName == "тн" ||
+                             rec.DayType.SymbolName == "нн")
+                    {
+                        hospital++;
+                        factDays--;
+                    }
 
+                    //-10. Фактично відпрац.
+                    // -9. Відпустка    -   В, Ч, Н, ДД
+                    // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
+                    // -7. Відп.(не оплач) - НБ, БЗ, ЗС
+                    // -6. Відрядження - ВД
+                    // -5. Відгул   -   ДВ
+                    // -4. Незясовано - НЗ
+                    // -3. Семінар/підвищ.кваліф. - С
+                    // -2. Хвороба - ТН, НН
+                    // -1. Вихідні, святкові дні
 
-
-                    if (holydays > 0) rows[row, colsCnt - 7] = holydays.ToString();
+                    if (holydays > 0) rows[row, colsCnt - 9] = holydays.ToString();
+                    if (holyChild > 0) rows[row, colsCnt - 8] = holyChild.ToString();
+                    if (holyFree > 0) rows[row, colsCnt - 7] = holyFree.ToString();
                     if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();
                     if (dayOff > 0) rows[row, colsCnt - 5] = dayOff.ToString();
                     if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();
-                    if (studying > 0) rows[row, colsCnt - 3] = studying.ToString();
+                    if (seminar > 0) rows[row, colsCnt - 3] = seminar.ToString();
                     if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();
                 }
 
-                if (true) rows[row, colsCnt - 8] = factDays.ToString();
+                if (true) rows[row, colsCnt - 10] = factDays.ToString();
 
                 factDaysSum += factDays;
                 holydaysSum += holydays;
+                holyChildSum += holyChild;
+                holyFreeSum += holyFree;
                 workTripSum += workTrip;
                 dayOffSum += dayOff;
                 unknownSum += unknown;
-                studyingSum += studying;
+                seminarSum += seminar;
                 hospitalSum += hospital;
                 weekendsSum += weekends;
             }
+
             // ADD SUMMARY :
             rows[rowsCnt - 1, 3] = isWomanSum.ToString();
 
-            rows[rowsCnt - 1, colsCnt - 8] = factDaysSum.ToString();
-            rows[rowsCnt - 1, colsCnt - 7] = holydaysSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 10] = factDaysSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 9] = holydaysSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 8] = holyChildSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 7] = holyFreeSum.ToString();
             rows[rowsCnt - 1, colsCnt - 6] = workTripSum.ToString();
             rows[rowsCnt - 1, colsCnt - 5] = dayOffSum.ToString();
             rows[rowsCnt - 1, colsCnt - 4] = unknownSum.ToString();
-            rows[rowsCnt - 1, colsCnt - 3] = studyingSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 3] = seminarSum.ToString();
             rows[rowsCnt - 1, colsCnt - 2] = hospitalSum.ToString();
 
 
@@ -183,6 +246,8 @@ namespace TimeSheet_Of_Personnel.Controllers
 
             return View();
         }
+
+
 
 
 

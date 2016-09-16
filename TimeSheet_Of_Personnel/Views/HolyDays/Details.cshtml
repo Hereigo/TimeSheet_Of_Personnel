@@ -1,0 +1,34 @@
+﻿@model TimeSheet_Of_Personnel.Models.HolyDay
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HolyDay</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HolyDayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HolyDayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HolyDayDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HolyDayDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HolyDayID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

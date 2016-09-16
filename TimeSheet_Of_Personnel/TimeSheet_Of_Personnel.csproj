@@ -133,6 +133,7 @@
     <Compile Include="Controllers\CalendRecordsController.cs" />
     <Compile Include="Controllers\DayTypesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\HolyDaysController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,6 +144,8 @@
     <Compile Include="Models\EDM_TimeSheet_TEST_Initializer.cs" />
     <Compile Include="Models\EDM_TimeSheet_Initializer.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\HolyDay.cs" />
+    <Compile Include="Models\HolyDaysNamesEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +263,11 @@
     <Content Include="Views\DayTypes\Edit.cshtml" />
     <Content Include="Views\DayTypes\Index.cshtml" />
     <Content Include="Views\CalendRecords\MonthView.cshtml" />
+    <Content Include="Views\HolyDays\Create.cshtml" />
+    <Content Include="Views\HolyDays\Delete.cshtml" />
+    <Content Include="Views\HolyDays\Details.cshtml" />
+    <Content Include="Views\HolyDays\Edit.cshtml" />
+    <Content Include="Views\HolyDays\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

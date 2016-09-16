@@ -21,6 +21,7 @@ namespace TimeSheet_Of_Personnel.Models
         public virtual DbSet<DayType> DayTypes { get; set; }
         public virtual DbSet<CalendRecord> CalendRecords { get; set; }
         public virtual DbSet<EmploMonthRow> EmploMonthRows { get; set; }
+        public virtual DbSet<HolyDay> HolyDays { get; set; }
     }
 
     [Table("HR_EmploMonthRow")]

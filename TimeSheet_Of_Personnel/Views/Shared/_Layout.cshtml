@@ -21,8 +21,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="btn btn-default menu">@Html.ActionLink("Довідник днів", "Index", "DayTypes")</li>
+                    <li class="btn btn-default menu">@Html.ActionLink("Табельні дні", "Index", "DayTypes")</li>
+
+                    <li class="btn btn-default menu">@Html.ActionLink("Вихідні та святкові", "Index", "HolyDays")</li>
+
                     <li class="btn btn-default menu">@Html.ActionLink("Працівники", "Index", "Employees")</li>
+
                     <li class="btn btn-default">@Html.ActionLink("Поточний місяць", "MonthView", "CalendRecords")</li>
 
                     @*<li class="btn btn-default">@Html.ActionLink("Повний перелік записів", "Index", "CalendRecords")</li>*@

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TimeSheet_Of_Personnel.Models.HolyDay>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+<h4>Вихідні та святкові дні:</h4>
+
+<p>
+    @Html.ActionLink(" + Додати свято чи вихідний", "Create", new { }, new { @class = "btn btn-default" })
+</p>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.HolyDayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HolyDayName)
+        </th>
+        <th></th>
+        <th></th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.HolyDayID }, new { @class = "glyphicon glyphicon-pencil" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HolyDayDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HolyDayName)
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    }
+
+</table>

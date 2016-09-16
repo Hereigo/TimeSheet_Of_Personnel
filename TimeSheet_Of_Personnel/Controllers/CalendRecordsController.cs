@@ -87,29 +87,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             // MINUS ONE ROW FOR SUMMARY :
             for (int row = 0; row < rowsCnt - 1; row++)
             {
-                // FILL ROW WITH - "8"
-                for (int col = 0; col < firstColsShift + daysInMon; col++)
-                {
-                    // TODO:
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!                
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-
-                    //DateTime dt = new DateTime(currYear, currMonth, col);
-
-                    //if (dt == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
-                    //{
-                    //    rows[row, col] = "#";
-                    //}
-                    //else
-                    //{
-                        rows[row, col] = "8";
-                    //}
-
-                    
-                }
-
+                // FILL FIRST 5 COLUMNS
                 rows[row, 0] = (row + 1).ToString();
                 rows[row, 1] = actualEmployees[row].EmployeeName;
                 rows[row, 2] = actualEmployees[row].EmployPosition;
@@ -117,6 +95,31 @@ namespace TimeSheet_Of_Personnel.Controllers
                 rows[row, 4] = actualEmployees[row].EmployeeID.ToString();
 
                 if (actualEmployees[row].IsAWoman) isWomanSum++;
+
+                // START FROM 5 & FILL ROWS WITH - "8"
+                for (int col = firstColsShift; col < firstColsShift + daysInMon; col++)
+                {
+                    // TODO:
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!                
+                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+
+                    DateTime dt = new DateTime(currYear, currMonth, col-firstColsShift+1);
+
+                    if (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        rows[row, col] = "#";
+                    }
+                    else
+                    {
+                        rows[row, col] = "8";
+                    }
+
+
+                }
+
+
 
                 // TODO:
                 // DO NOT FORGET ABOUT HOLYDAYS !!!!!

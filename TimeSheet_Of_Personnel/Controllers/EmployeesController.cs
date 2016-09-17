@@ -56,6 +56,23 @@ namespace TimeSheet_Of_Personnel.Controllers
             {
                 db.Employees.Add(employee);
                 db.SaveChanges();
+
+                // FILL PREVIOUS DAY IN CURRENT MONTH BEFOR 1-ST DAY OF WORK
+                int yearOf1stDay = employee.WorkStart.Year;
+                int monthOf1stDay = employee.WorkStart.Month;
+                int dayOf1stDate = employee.WorkStart.Day;
+
+                for (int i = 1; i < dayOf1stDate; i++)
+                {
+                    db.CalendRecords.Add(new CalendRecord
+                    {
+                        EmployeeID = employee.EmployeeID,
+                        DayTypeID = 0, // DON NOT WORK (YET\ALREADY) AT THIS DAY
+                        CalendRecordName = new DateTime(yearOf1stDay, monthOf1stDay, i)
+                    });
+                }
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

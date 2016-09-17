@@ -47,6 +47,11 @@ namespace TimeSheet_Of_Personnel.Controllers
                                                    r.CalendRecordName <= lastDayOfMonth
                                                    select r).ToList();
 
+            // GET HOLYDAYS LIST FOR CURRENT MONTH:
+            int[] holyDays = (from h in db.HolyDays
+                                      where h.HolyDayDate.Month == currMonth
+                                      select h.HolyDayDate.Day).ToArray();
+
             // (daysInCurrMonth) 
             // + 1.Num + 2.Name + 3.Position + 4.IsWoman + 5.TimeSheetNum
             int firstColsShift = 5;
@@ -87,7 +92,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             // MINUS ONE ROW FOR SUMMARY :
             for (int row = 0; row < rowsCnt - 1; row++)
             {
-                // FILL FIRST 5 COLUMNS
+                // FILL FIRST 5 COLUMNS:
                 rows[row, 0] = (row + 1).ToString();
                 rows[row, 1] = actualEmployees[row].EmployeeName;
                 rows[row, 2] = actualEmployees[row].EmployPosition;
@@ -99,27 +104,17 @@ namespace TimeSheet_Of_Personnel.Controllers
                 // START FROM 5 & FILL ROWS WITH - "8"
                 for (int col = firstColsShift; col < firstColsShift + daysInMon; col++)
                 {
-                    // TODO:
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!                
-                    // DO NOT FORGET ABOUT HOLYDAYS !!!!!
+                    int dayInMonth = col - firstColsShift + 1;
 
-                    DateTime dt = new DateTime(currYear, currMonth, col-firstColsShift+1);
-
-                    if (dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    if (holyDays.Contains(dayInMonth))
                     {
-                        rows[row, col] = "#";
+                        rows[row, col] = "";
                     }
                     else
                     {
                         rows[row, col] = "8";
                     }
-
-
                 }
-
-
 
                 // TODO:
                 // DO NOT FORGET ABOUT HOLYDAYS !!!!!
@@ -138,83 +133,91 @@ namespace TimeSheet_Of_Personnel.Controllers
                 int hospital = 0;
                 int weekends = 0;
 
+                // WRITE EVERY CALENDAR-RECORD INTO ITS RIGHT PLACE AT CALENDAR:
                 foreach (CalendRecord rec in actualCalRecords.Where(e => e.EmployeeID == actualEmployees[row].EmployeeID))
                 {
-                    // COLUMN WITH NUMBER OF DAY IN MONTH (with shift) = CALEND.RECORD WITH THE SAME DAY IN CURRENT MONTH
-                    rows[row, rec.CalendRecordName.Day + firstColsShift - 1] = rec.DayType.SymbolName;
+                    int dayInMonth = rec.CalendRecordName.Day;
 
-                    // COUNT DIFFERENT TYPES OF NOT-WORKING-DAYS :
-                    if (rec.DayType.SymbolName == "в" ||
-                        rec.DayType.SymbolName == "ч" ||
-                        rec.DayType.SymbolName == "н" ||
-                        rec.DayType.SymbolName == "дд")
+                    // IF RECORD-DAY IS NOT IN HOLYDAYS LIST :
+                    if (!holyDays.Contains(dayInMonth))
                     {
-                        holydays++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "вп" ||
-                            rec.DayType.SymbolName == "до")
-                    {
-                        holyChild++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "бз" ||
-                            rec.DayType.SymbolName == "нб" ||
-                            rec.DayType.SymbolName == "зс"
-                            )
-                    {
-                        holyFree++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "вд")
-                    {
-                        workTrip++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "дв")
-                    {
-                        dayOff++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "нз")
-                    {
-                        unknown++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "с")
-                    {
-                        seminar++;
-                        factDays--;
-                    }
-                    else if (rec.DayType.SymbolName == "тн" ||
-                             rec.DayType.SymbolName == "нн")
-                    {
-                        hospital++;
-                        factDays--;
-                    }
+                        // COLUMN WITH NUMBER OF DAY IN MONTH (with shift) 
+                        // = CALEND.RECORD WITH THE SAME DAY IN CURRENT MONTH
+                        rows[row, dayInMonth + firstColsShift - 1] = rec.DayType.SymbolName;
 
-                    //-10. Фактично відпрац.
-                    // -9. Відпустка    -   В, Ч, Н, ДД
-                    // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
-                    // -7. Відп.(не оплач) - НБ, БЗ, ЗС
-                    // -6. Відрядження - ВД
-                    // -5. Відгул   -   ДВ
-                    // -4. Незясовано - НЗ
-                    // -3. Семінар/підвищ.кваліф. - С
-                    // -2. Хвороба - ТН, НН
-                    // -1. Вихідні, святкові дні
+                        // COUNT DIFFERENT TYPES OF NOT-WORKING-DAYS :
+                        if (rec.DayType.SymbolName == "в" ||
+                            rec.DayType.SymbolName == "ч" ||
+                            rec.DayType.SymbolName == "н" ||
+                            rec.DayType.SymbolName == "дд")
+                        {
+                            holydays++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "вп" ||
+                                rec.DayType.SymbolName == "до")
+                        {
+                            holyChild++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "бз" ||
+                                rec.DayType.SymbolName == "нб" ||
+                                rec.DayType.SymbolName == "зс"
+                                )
+                        {
+                            holyFree++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "вд")
+                        {
+                            workTrip++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "дв")
+                        {
+                            dayOff++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "нз")
+                        {
+                            unknown++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "с")
+                        {
+                            seminar++;
+                            factDays--;
+                        }
+                        else if (rec.DayType.SymbolName == "тн" ||
+                                 rec.DayType.SymbolName == "нн")
+                        {
+                            hospital++;
+                            factDays--;
+                        }
 
-                    if (holydays > 0) rows[row, colsCnt - 9] = holydays.ToString();
-                    if (holyChild > 0) rows[row, colsCnt - 8] = holyChild.ToString();
-                    if (holyFree > 0) rows[row, colsCnt - 7] = holyFree.ToString();
-                    if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();
-                    if (dayOff > 0) rows[row, colsCnt - 5] = dayOff.ToString();
-                    if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();
-                    if (seminar > 0) rows[row, colsCnt - 3] = seminar.ToString();
-                    if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();
+                        //-10. Фактично відпрац.
+                        // -9. Відпустка    -   В, Ч, Н, ДД
+                        // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
+                        // -7. Відп.(не оплач) - НБ, БЗ, ЗС
+                        // -6. Відрядження - ВД
+                        // -5. Відгул   -   ДВ
+                        // -4. Незясовано - НЗ
+                        // -3. Семінар/підвищ.кваліф. - С
+                        // -2. Хвороба - ТН, НН
+                        // -1. Вихідні, святкові дні
+
+                        if (holydays > 0) rows[row, colsCnt - 9] = holydays.ToString();
+                        if (holyChild > 0) rows[row, colsCnt - 8] = holyChild.ToString();
+                        if (holyFree > 0) rows[row, colsCnt - 7] = holyFree.ToString();
+                        if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();
+                        if (dayOff > 0) rows[row, colsCnt - 5] = dayOff.ToString();
+                        if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();
+                        if (seminar > 0) rows[row, colsCnt - 3] = seminar.ToString();
+                        if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString(); 
+                    }
                 }
 
-                if (true) rows[row, colsCnt - 10] = factDays.ToString();
+                rows[row, colsCnt - 10] = factDays.ToString();
 
                 factDaysSum += factDays;
                 holydaysSum += holydays;
@@ -317,7 +320,14 @@ namespace TimeSheet_Of_Personnel.Controllers
         // GET: CalendRecords
         public ActionResult Index()
         {
-            var calendRecords = db.CalendRecords.Include(c => c.DayType).Include(c => c.Employee);
+            var calendRecords = db.CalendRecords.Include(c => c.DayType).Include(c => c.Employee).
+                Where(c => c.CalendRecordName.Month == 7);
+
+            // JULY MONTH !!!!!!!!!!!!!!
+            // JULY MONTH !!!!!!!!!!!!!!
+            // JULY MONTH !!!!!!!!!!!!!!
+            // JULY MONTH !!!!!!!!!!!!!!
+
             return View(calendRecords.ToList());
         }
 

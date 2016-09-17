@@ -8,9 +8,14 @@ table {
     /* TODO REFACTOR - BUT SOMTIMES HELPS */
 }
 
+td:hover {
+    background-color:darkgrey;
+}
+
 tr, td, th {
     background-color: white;
     border: solid 1px black;
+    min-width:1.1em;
     text-align: center;
     white-space: nowrap;
 }
@@ -44,3 +49,7 @@ tr, td, th {
                 font-weight: normal;
                 padding: 0 10px;
             }
+
+table tr td:empty {
+        background-color: red;
+    }

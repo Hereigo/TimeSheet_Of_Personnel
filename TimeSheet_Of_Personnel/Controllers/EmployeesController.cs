@@ -42,6 +42,17 @@ namespace TimeSheet_Of_Personnel.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
+            // TODO:
+            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
+            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
+            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
+            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
+            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
+
+            int timeSheetNumNext = (from e in db.Employees select e.EmployeeID).Max();
+
+            ViewBag.NewTimeSheetNum = ++timeSheetNumNext;
+
             return View();
         }
 

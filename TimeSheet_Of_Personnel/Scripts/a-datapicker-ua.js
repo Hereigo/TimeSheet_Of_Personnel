@@ -19,15 +19,15 @@
         yearSuffix: ''
     };
     $.datepicker.setDefaults($.datepicker.regional['ua']);
-    //$.validator.addMethod('date',
-    //function (value, element) {
-    //    var ok = true;
-    //    try {
-    //        $.datepicker.parseDate('dd/mm/yy', value);
-    //    }
-    //    catch (err) {
-    //        ok = false;
-    //    }
-    //    return ok;
-    //});
+    $.validator.addMethod('date',
+    function (value, element) {
+        var ok = true;
+        try {
+            $.datepicker.parseDate('dd/mm/yy', value);
+        }
+        catch (err) {
+            ok = false;
+        }
+        return ok;
+    });
 });

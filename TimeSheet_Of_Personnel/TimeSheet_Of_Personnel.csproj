@@ -133,6 +133,7 @@
     <Compile Include="Controllers\CalendRecordsController.cs" />
     <Compile Include="Controllers\DayTypesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\Git_Ignore__CalendRec_MonthVew_OLD.cs" />
     <Compile Include="Controllers\HolyDaysController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

@@ -17,13 +17,7 @@ namespace TimeSheet_Of_Personnel.Controllers
         public ActionResult MonthView(int? year, int? month)
         {
             int currYear = DateTime.Now.Year;
-
-            // TODO: 
-            // TEMPORARY FOR TEST - MONTH -2
-            // TEMPORARY FOR TEST - MONTH -2
-            int currMonth = DateTime.Now.Month - 2;
-            // TEMPORARY FOR TEST - MONTH -2
-            // TEMPORARY FOR TEST - MONTH -2
+            int currMonth = DateTime.Now.Month;
 
             if (year.HasValue && month.HasValue)
             {
@@ -41,9 +35,9 @@ namespace TimeSheet_Of_Personnel.Controllers
             // EMPLOYEES with WORK.END == NULL OR >= firstDayOfMonth :
 #if DEBUG
             List<Employee> workingEmployees = (from e in db.Employees
-                                              where e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth
-                                              orderby e.EmployeeName
-                                              select e).Take(12).ToList();
+                                               where e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth
+                                               orderby e.EmployeeName
+                                               select e).Take(12).ToList();
 #else
             List<Employee> workingEmployees = (from e in db.Employees
                                               where e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth
@@ -52,9 +46,9 @@ namespace TimeSheet_Of_Personnel.Controllers
 #endif
             // CURRENT MONTH CALENDAR RECORDS FOR ALL :
             List<CalendRecord> currMonCalRecords = (from r in db.CalendRecords
-                                                   where r.CalendRecordName >= firstDayOfMonth &&
-                                                   r.CalendRecordName <= lastDayOfMonth
-                                                   select r).ToList();
+                                                    where r.CalendRecordName >= firstDayOfMonth &&
+                                                    r.CalendRecordName <= lastDayOfMonth
+                                                    select r).ToList();
 
             // HOLYDAYS LIST FOR CURRENT MONTH:
             int[] holyDays = (from h in db.HolyDays
@@ -100,17 +94,7 @@ namespace TimeSheet_Of_Personnel.Controllers
 
                 if (workingEmployees[row].IsAWoman) isWomanSum++;
 
-                //CalendRecord records =  in actualCalRecords.Where(e => e.EmployeeID == actualEmployees[row].EmployeeID);
-
-
-
-                // TODO:
-                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
                 int factDays = daysInMon;
-                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-                // DO NOT FORGET ABOUT HOLYDAYS !!!!!
-
                 int holydays = 0;
                 int holyChild = 0;
                 int holyFree = 0;
@@ -133,10 +117,6 @@ namespace TimeSheet_Of_Personnel.Controllers
                     }
                     else
                     {
-                        //CalendRecord rec = from r in 
-                        //currMonCalRecords.Contains(r => r. )
-
-
                         rows[row, col] = "8";
                     }
                 }
@@ -207,29 +187,18 @@ namespace TimeSheet_Of_Personnel.Controllers
                             factDays--;
                         }
 
-                        //-10. Фактично відпрац.
-                        // -9. Відпустка    -   В, Ч, Н, ДД
-                        // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
-                        // -7. Відп.(не оплач) - НБ, БЗ, ЗС
-                        // -6. Відрядження - ВД
-                        // -5. Відгул   -   ДВ
-                        // -4. Незясовано - НЗ
-                        // -3. Семінар/підвищ.кваліф. - С
-                        // -2. Хвороба - ТН, НН
-                        // -1. Вихідні, святкові дні
-
-                        if (holydays > 0) rows[row, colsCnt - 9] = holydays.ToString();
-                        if (holyChild > 0) rows[row, colsCnt - 8] = holyChild.ToString();
-                        if (holyFree > 0) rows[row, colsCnt - 7] = holyFree.ToString();
-                        if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();
-                        if (dayOff > 0) rows[row, colsCnt - 5] = dayOff.ToString();
-                        if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();
-                        if (seminar > 0) rows[row, colsCnt - 3] = seminar.ToString();
-                        if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();
-                    }
+                        if (holydays > 0) rows[row, colsCnt - 9] = holydays.ToString();   // -9. Відпустка    -   В, Ч, Н, ДД
+                        if (holyChild > 0) rows[row, colsCnt - 8] = holyChild.ToString(); // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
+                        if (holyFree > 0) rows[row, colsCnt - 7] = holyFree.ToString();   // -7. Відп.(не оплач) - НБ, БЗ, ЗС
+                        if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();   // -6. Відрядження - ВД
+                        if (dayOff > 0) rows[row, colsCnt - 5] = dayOff.ToString();       // -5. Відгул   -   ДВ
+                        if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();     // -4. Незясовано - НЗ
+                        if (seminar > 0) rows[row, colsCnt - 3] = seminar.ToString();     // -3. Семінар/підвищ.кваліф. - С
+                        if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();   // -2. Хвороба - ТН, НН
+                    }                                                                     // -1. Вихідні, святкові дні
                 }
 
-                rows[row, colsCnt - 10] = factDays.ToString();
+                rows[row, colsCnt - 10] = factDays.ToString();                            //-10. Фактично відпрац.
 
                 factDaysSum += factDays;
                 holydaysSum += holydays;
@@ -261,69 +230,6 @@ namespace TimeSheet_Of_Personnel.Controllers
             ViewBag.columns = colsCnt;
 
             return View();
-        }
-
-
-
-
-
-        public ActionResult MonthView_OLD()
-        {
-            // TODO:
-            // YEAR & MONTH FOR TESTS ONLY :
-            // YEAR & MONTH FOR TESTS ONLY :
-            int currYear = 2016;
-            int currMonth = 7;
-
-            ViewBag.MonthDate = new DateTime(currYear, currMonth, 1);
-
-            // GET ALL RECORDS FROM DB :
-            // TODO:
-            // SET PERSONS & PEIODS FILTERS :
-            List<CalendRecord> calendRecords =
-                (db.CalendRecords.Include(c => c.Employee).Include(c => c.DayType)).ToList();
-
-            // TODO:
-            // REFACTOR ME!
-            // GET LIST OF ACTUAL EMPLOYEES :
-            var employeesList = (from c in calendRecords select c.Employee).Distinct();
-
-            // LIST OF oneEmploRow-s FOR VIEW :
-            var rows = new List<EmploMonthRow>();
-
-            foreach (Employee emp in employeesList)
-            {
-                // EMPTY ROW FOR MONTH OF ONE EMPLOYEE (size 28...31) :
-                string[] oneEmploRow = new string[DateTime.DaysInMonth(currYear, currMonth)];
-
-                // FILLING WHOLE ARRAY WITH DEFAULTS :
-                for (int i = 0; i < oneEmploRow.Length; i++) oneEmploRow[i] = "8";
-
-                // TODO :
-                // FILL WITH WEEKENDS & HOLOYDAYS !!!!!!!!!!!
-                // FILL WITH WEEKENDS & HOLOYDAYS !!!!!!!!!!!
-
-                // FILLING CELLS WITH DAYTYPE.VALUES FOR CURR EMPLOYEE :
-                List<CalendRecord> daysForCurrEmp = (from d in calendRecords
-                                                     where
-                            d.Employee.EmployeeName == emp.EmployeeName
-                                                     select d).ToList();
-
-                foreach (var day in daysForCurrEmp)
-                {
-                    oneEmploRow[day.CalendRecordName.Day - 1] = day.DayType.SymbolName;
-                }
-
-                var row = new EmploMonthRow()
-                {
-                    Employee = emp,
-                    MonthDays = oneEmploRow
-                };
-
-                rows.Add(row);
-            }
-
-            return View(rows);
         }
 
 

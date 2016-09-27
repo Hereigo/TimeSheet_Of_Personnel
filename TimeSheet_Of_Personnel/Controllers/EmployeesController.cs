@@ -112,10 +112,49 @@ namespace TimeSheet_Of_Personnel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EmployeeID,EmployeeName,EmployPosition,IsAWoman,Comment,WorkStart,WorkEnd")] Employee employee)
         {
+            //db.Employees.Add(employee);
+            //db.SaveChanges();
+
+            //// FILL PREVIOUS DAY IN CURRENT MONTH BEFOR 1-ST DAY OF WORK
+            //int yearOf1stDay = employee.WorkStart.Year;
+            //int monthOf1stDay = employee.WorkStart.Month;
+            //int dayOf1stDate = employee.WorkStart.Day;
+
+            //for (int i = 1; i < dayOf1stDate; i++)
+            //{
+            //    db.CalendRecords.Add(new CalendRecord
+            //    {
+            //        EmployeeID = employee.EmployeeID,
+            //        DayTypeID = 0, // DON NOT WORK (YET\ALREADY) AT THIS DAY
+            //        CalendRecordName = new DateTime(yearOf1stDay, monthOf1stDay, i)
+            //    });
+            //}
+            //db.SaveChanges();
+
             if (ModelState.IsValid)
             {
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // FILL ALL NEXT DAYS IN CURRENT MONTH AFTER LAST DAY OF WORK
+                int yearOfLastDay = employee.WorkEnd.Value.Year;
+                int monthOfLastDay = employee.WorkEnd.Value.Month;
+                int dayLastInMonth = DateTime.DaysInMonth(yearOfLastDay, monthOfLastDay);
+
+                if (employee.WorkEnd.Value.Day < dayLastInMonth)
+                {
+                    for (int i = (employee.WorkEnd.Value.Day + 1); i <= dayLastInMonth; i++)
+                    {
+                        db.CalendRecords.Add(new CalendRecord
+                        {
+                            EmployeeID = employee.EmployeeID,
+                            DayTypeID = 0, // DON NOT WORK (YET\ALREADY) AT THIS DAY
+                            CalendRecordName = new DateTime(yearOfLastDay, monthOfLastDay, i)
+                        });
+                    } 
+                }
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(employee);

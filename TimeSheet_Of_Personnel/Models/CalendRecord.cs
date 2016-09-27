@@ -16,7 +16,7 @@ namespace TimeSheet_Of_Personnel.Models
 
         [DisplayName("Дата :")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CalendRecordName { get; set; }
 
         public int EmployeeID { get; set; }

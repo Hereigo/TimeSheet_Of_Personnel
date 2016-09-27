@@ -9,44 +9,43 @@
 <h3>@ViewBag.MonthDate.ToString("MMMM, yyyy")</h3>
 
 
+<table id="monthViewTable">
 
-    <table id="monthViewTable">
+    <tr>
+        <th>№</th>
+        <th>П.І.Б.</th>
+        <th>Посада</th>
+        <th class="rotate"><div><span>жінка</span></div></th>
+        <th class="rotate"><div><span>Табельний №</span></div></th>
 
-        <tr>
-            <th>№</th>
-            <th>П.І.Б.</th>
-            <th>Посада</th>
-            <th class="rotate"><div><span>жінка</span></div></th>
-            <th class="rotate"><div><span>Табельний №</span></div></th>
-
-            @for (int i = 1; i < (ViewBag.columns) - 14; i++)
+        @for (int i = 1; i < (ViewBag.columns) - 14; i++)
             {
-                <th> <br /><br /><br /><br /><br /> @i </th>
-            }
-
-            <th class="rotate"><div><span>фактично відпрац.</span></div></th>
-            <th class="rotate"><div><span>відпустка</span></div></th>
-            <th class="rotate"><div><span>відп.(вагіт./дог.дит)</span></div></th>
-            <th class="rotate"><div><span>відп. (не оплачув.)</span></div></th>
-            <th class="rotate"><div><span>відрядження</span></div></th>
-            <th class="rotate"><div><span>відгул</span></div></th>
-            <th class="rotate"><div><span>неявк з незяс.прич.</span></div></th>
-            <th class="rotate"><div><span>підвищ.кваліфік.</span></div></th>
-            <th class="rotate"><div><span>хвороба</span></div></th>
-            <th class="rotate"><div><span>вихідні,святкові дні</span></div></th>
-
-        </tr>
-
-        @for (int i = 0; i < ViewBag.rows; i++)
-            {
-            <tr>
-                @for (int k = 0; k < ViewBag.columns; k++)
-                {
-                    <td>
-                        @ViewBag.calendMatrix[i, k]
-                    </td>
-                }
-            </tr>
+            <th> <br /><br /><br /><br /><br /> @i </th>
         }
-    </table>
+
+        <th class="rotate"><div><span>фактично відпрац.</span></div></th>
+        <th class="rotate"><div><span>відпустка</span></div></th>
+        <th class="rotate"><div><span>відп.(вагіт./дог.дит)</span></div></th>
+        <th class="rotate"><div><span>відп. (не оплачув.)</span></div></th>
+        <th class="rotate"><div><span>відрядження</span></div></th>
+        <th class="rotate"><div><span>відгул</span></div></th>
+        <th class="rotate"><div><span>неявк з незяс.прич.</span></div></th>
+        <th class="rotate"><div><span>підвищ.кваліфік.</span></div></th>
+        <th class="rotate"><div><span>хвороба</span></div></th>
+        <th class="rotate"><div><span>вихідні,святкові дні</span></div></th>
+
+    </tr>
+
+    @for (int i = 0; i < ViewBag.rows; i++)
+            {
+        <tr>
+            @for (int k = 0; k < ViewBag.columns; k++)
+                {
+                <td>
+                    @ViewBag.calendMatrix[i, k]
+                </td>
+            }
+        </tr>
+    }
+</table>
 

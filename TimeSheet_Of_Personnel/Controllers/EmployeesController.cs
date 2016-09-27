@@ -42,13 +42,7 @@ namespace TimeSheet_Of_Personnel.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
-            // TODO:
             // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
-            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
-            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
-            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
-            // GET MAXIMUM TIMESHEET NUMBER & SEND FOR NEW EMPLOYEE !!!
-
             int timeSheetNumNext = (from e in db.Employees select e.EmployeeID).Max();
 
             ViewBag.NewTimeSheetNum = ++timeSheetNumNext;
@@ -78,7 +72,7 @@ namespace TimeSheet_Of_Personnel.Controllers
                     db.CalendRecords.Add(new CalendRecord
                     {
                         EmployeeID = employee.EmployeeID,
-                        DayTypeID = 0, // DON NOT WORK (YET\ALREADY) AT THIS DAY
+                        DayTypeID = 0, // DON NOT WORK (YET) AT THIS DAY
                         CalendRecordName = new DateTime(yearOf1stDay, monthOf1stDay, i)
                     });
                 }
@@ -112,25 +106,6 @@ namespace TimeSheet_Of_Personnel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EmployeeID,EmployeeName,EmployPosition,IsAWoman,Comment,WorkStart,WorkEnd")] Employee employee)
         {
-            //db.Employees.Add(employee);
-            //db.SaveChanges();
-
-            //// FILL PREVIOUS DAY IN CURRENT MONTH BEFOR 1-ST DAY OF WORK
-            //int yearOf1stDay = employee.WorkStart.Year;
-            //int monthOf1stDay = employee.WorkStart.Month;
-            //int dayOf1stDate = employee.WorkStart.Day;
-
-            //for (int i = 1; i < dayOf1stDate; i++)
-            //{
-            //    db.CalendRecords.Add(new CalendRecord
-            //    {
-            //        EmployeeID = employee.EmployeeID,
-            //        DayTypeID = 0, // DON NOT WORK (YET\ALREADY) AT THIS DAY
-            //        CalendRecordName = new DateTime(yearOf1stDay, monthOf1stDay, i)
-            //    });
-            //}
-            //db.SaveChanges();
-
             if (ModelState.IsValid)
             {
                 db.Entry(employee).State = EntityState.Modified;
@@ -148,10 +123,10 @@ namespace TimeSheet_Of_Personnel.Controllers
                         db.CalendRecords.Add(new CalendRecord
                         {
                             EmployeeID = employee.EmployeeID,
-                            DayTypeID = 0, // DON NOT WORK (YET\ALREADY) AT THIS DAY
+                            DayTypeID = 0, // DON NOT WORK (ALREADY) AT THIS DAY
                             CalendRecordName = new DateTime(yearOfLastDay, monthOfLastDay, i)
                         });
-                    } 
+                    }
                 }
                 db.SaveChanges();
 

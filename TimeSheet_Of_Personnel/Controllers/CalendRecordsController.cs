@@ -147,14 +147,8 @@ namespace TimeSheet_Of_Personnel.Controllers
                     int dayInMonth = rec.CalendRecordName.Day;
 
                     // IF RECORD-DAY IS NOT IN HOLYDAYS LIST :
-                    if (holyDays.Contains(dayInMonth))
+                    if (!holyDays.Contains(dayInMonth))
                     {
-                        // TEST += " c." + dayInMonth;
-                    }
-                    else
-                    {
-                        // TEST += " N." + dayInMonth;
-
                         // COLUMN WITH NUMBER OF DAY IN MONTH (with shift) 
                         // = CALEND.RECORD WITH THE SAME DAY IN CURRENT MONTH
                         rows[row, dayInMonth + firstColsShift - 1] = rec.DayType.SymbolName;

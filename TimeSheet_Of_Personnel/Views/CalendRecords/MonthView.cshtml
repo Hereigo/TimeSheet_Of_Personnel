@@ -13,12 +13,19 @@
     <tr>
         <th>№</th>
         <th>П.І.Б.</th>
+
+        <th class="rotate"><div><span>редагувати дні</span></div></th>
+
         <th>Посада</th>
         <th class="rotate"><div><span>жінка</span></div></th>
         <th class="rotate"><div><span>Табельний №</span></div></th>
 
-        @for (int i = 1; i < (ViewBag.columns) - 14; i++)
-            {
+
+
+        @* WRITE NUMBERS OF MONTH-DAYS ( -15 ADDITIONAL COLUMNS ) *@
+
+        @for (int i = 1; i < (ViewBag.columns) - 15; i++)
+        {
             <th> <br /><br /><br /><br /><br /> @i </th>
         }
 
@@ -36,15 +43,23 @@
     </tr>
 
     @for (int i = 0; i < ViewBag.rows; i++)
-            {
+    {
         <tr>
             @for (int k = 0; k < ViewBag.columns; k++)
+            {
+                if (k == 2)
                 {
-                <td>
-                    @ViewBag.calendMatrix[i, k]
-                </td>
+                    <td>
+                        @Html.ActionLink(" ", "Create", "CalendRecords", new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-pencil" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @ViewBag.calendMatrix[i, k]
+                    </td>
+                }
             }
         </tr>
     }
 </table>
-

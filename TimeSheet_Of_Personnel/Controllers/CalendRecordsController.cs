@@ -56,8 +56,8 @@ namespace TimeSheet_Of_Personnel.Controllers
                               select h.HolyDayDate.Day).ToArray();
 
             // (daysInCurrMonth) 
-            // + 1.Num + 2.Name + 3.Position + 4.IsWoman + 5.TimeSheetNum
-            int firstColsShift = 5;
+            // + 1.Num + 2.Name + 3.EditField + 4.Position + 5.IsWoman + 6.TimeSheetNum
+            int firstColsShift = 6;
 
             int shiftFromEnd = 10;
 
@@ -88,9 +88,10 @@ namespace TimeSheet_Of_Personnel.Controllers
                 // FILL FIRST 5 COLUMNS :
                 rows[row, 0] = (row + 1).ToString();
                 rows[row, 1] = workingEmployees[row].EmployeeName;
-                rows[row, 2] = workingEmployees[row].EmployPosition;
-                rows[row, 3] = workingEmployees[row].IsAWoman ? "+" : "";
-                rows[row, 4] = workingEmployees[row].EmployeeID.ToString();
+                rows[row, 2] = ""; // EDITOR FIELD
+                rows[row, 3] = workingEmployees[row].EmployPosition;
+                rows[row, 4] = workingEmployees[row].IsAWoman ? "+" : "";
+                rows[row, 5] = workingEmployees[row].EmployeeID.ToString();
 
                 if (workingEmployees[row].IsAWoman) isWomanSum++;
 
@@ -139,22 +140,22 @@ namespace TimeSheet_Of_Personnel.Controllers
                             factDays--;
                         }
                         else if (rec.DayType.SymbolName == "в" ||
-                            rec.DayType.SymbolName == "ч" ||
-                            rec.DayType.SymbolName == "н" ||
-                            rec.DayType.SymbolName == "дд")
+                                 rec.DayType.SymbolName == "ч" ||
+                                 rec.DayType.SymbolName == "н" ||
+                                 rec.DayType.SymbolName == "дд")
                         {
                             holydays++;
                             factDays--;
                         }
                         else if (rec.DayType.SymbolName == "вп" ||
-                                rec.DayType.SymbolName == "до")
+                                 rec.DayType.SymbolName == "до")
                         {
                             holyChild++;
                             factDays--;
                         }
                         else if (rec.DayType.SymbolName == "бз" ||
-                                rec.DayType.SymbolName == "нб" ||
-                                rec.DayType.SymbolName == "зс"
+                                 rec.DayType.SymbolName == "нб" ||
+                                 rec.DayType.SymbolName == "зс"
                                 )
                         {
                             holyFree++;
@@ -213,7 +214,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             }
 
             // ADD SUMMARY :
-            rows[rowsCnt - 1, 3] = isWomanSum.ToString();
+            rows[rowsCnt - 1, 4] = isWomanSum.ToString();
 
             rows[rowsCnt - 1, colsCnt - 10] = factDaysSum.ToString();
             rows[rowsCnt - 1, colsCnt - 9] = holydaysSum.ToString();
@@ -225,6 +226,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             rows[rowsCnt - 1, colsCnt - 3] = seminarSum.ToString();
             rows[rowsCnt - 1, colsCnt - 2] = hospitalSum.ToString();
 
+            // COUNT MATRIX SIZE FOR SOME ACTIONS IN THE VIEW :
             ViewBag.calendMatrix = rows;
             ViewBag.rows = rowsCnt;
             ViewBag.columns = colsCnt;
@@ -236,13 +238,11 @@ namespace TimeSheet_Of_Personnel.Controllers
         // GET: CalendRecords
         public ActionResult Index()
         {
-            var calendRecords = db.CalendRecords.Include(c => c.DayType).Include(c => c.Employee).
-                Where(c => c.CalendRecordName.Month == 7);
+            // GET RECORDS FOR CURRENT MONTH & YEAR ONLY !!!
 
-            // JULY MONTH !!!!!!!!!!!!!!
-            // JULY MONTH !!!!!!!!!!!!!!
-            // JULY MONTH !!!!!!!!!!!!!!
-            // JULY MONTH !!!!!!!!!!!!!!
+            var calendRecords = db.CalendRecords.Include(c => c.DayType).Include(c => c.Employee).
+                Where(c => c.CalendRecordName.Year == DateTime.Now.Year &&
+                c.CalendRecordName.Month == DateTime.Now.Month);
 
             return View(calendRecords.ToList());
         }
@@ -263,10 +263,19 @@ namespace TimeSheet_Of_Personnel.Controllers
         }
 
         // GET: CalendRecords/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Employee emplo = db.Employees.Find(id);
+            if (emplo == null)
+            {
+                return HttpNotFound();
+            }
             ViewBag.DayTypeID = new SelectList(db.DayTypes, "DayTypeID", "DayTypeName");
-            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeName");
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeName", emplo.EmployeeID);
             return View();
         }
 
@@ -281,7 +290,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             {
                 db.CalendRecords.Add(calendRecord);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MonthView");
             }
 
             ViewBag.DayTypeID = new SelectList(db.DayTypes, "DayTypeID", "DayTypeName", calendRecord.DayTypeID);

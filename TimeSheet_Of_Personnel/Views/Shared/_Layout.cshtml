@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @*@Html.ActionLink("Табель працівників", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                @Html.ActionLink("Табель працівників", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
             </div>
             <div class="navbar-collapse collapse">
@@ -31,7 +31,7 @@
 
                     <li class="btn btn-default">@Html.ActionLink("Поточний місяць", "MonthView", "CalendRecords")</li>
 
-                    <li class="btn btn-default">@Html.ActionLink("Перелік записів", "Index", "CalendRecords")</li>
+                    
 
                 </ul>
                 <p class="nav navbar-text navbar-right">Доброго дня, @User.Identity.Name!</p>

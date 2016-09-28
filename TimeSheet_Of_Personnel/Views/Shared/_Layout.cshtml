@@ -31,8 +31,6 @@
 
                     <li class="btn btn-default">@Html.ActionLink("Поточний місяць", "MonthView", "CalendRecords")</li>
 
-                    
-
                 </ul>
                 <p class="nav navbar-text navbar-right">Доброго дня, @User.Identity.Name!</p>
             </div>
@@ -46,10 +44,10 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryui")
-    @RenderSection("monthViewScripts", required: false)
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryui")
+        @RenderSection("monthViewScripts", required: false)
+        @RenderSection("scripts", required: false)
 </body>
 </html>

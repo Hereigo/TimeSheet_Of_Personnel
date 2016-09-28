@@ -19,6 +19,11 @@ namespace TimeSheet_Of_Personnel.Controllers
             int currYear = DateTime.Now.Year;
             int currMonth = DateTime.Now.Month;
 
+            // TODO :
+            // NOT IMPLEMENTED YET !!!
+            // NOT IMPLEMENTED YET !!!
+            // NOT IMPLEMENTED YET !!!
+            // NOT IMPLEMENTED YET !!!
             if (year.HasValue && month.HasValue)
             {
                 currYear = Convert.ToInt32(year);
@@ -284,18 +289,27 @@ namespace TimeSheet_Of_Personnel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CalendRecordID,CalendRecordName,EmployeeID,DayTypeID")] CalendRecord calendRecord)
+        public ActionResult Create([Bind(Include = "CalendRecordID,CalendRecordName,EmployeeID,DayTypeID")] CalendRecord calRecSaving, int daysCount)
         {
             if (ModelState.IsValid)
             {
-                db.CalendRecords.Add(calendRecord);
+                // TO SAVE A FEW DAYS TOGETHER IN THE SAME TYPE :
+
+                for (int i = 0; i < daysCount; i++)
+                {
+                    db.CalendRecords.Add(new CalendRecord {
+                        EmployeeID = calRecSaving.EmployeeID,
+                        DayTypeID = calRecSaving.DayTypeID,
+                        CalendRecordID = calRecSaving.CalendRecordID,
+                        CalendRecordName = calRecSaving.CalendRecordName.AddDays(i)
+                    });
+                }
                 db.SaveChanges();
                 return RedirectToAction("MonthView");
             }
-
-            ViewBag.DayTypeID = new SelectList(db.DayTypes, "DayTypeID", "DayTypeName", calendRecord.DayTypeID);
-            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeName", calendRecord.EmployeeID);
-            return View(calendRecord);
+            ViewBag.DayTypeID = new SelectList(db.DayTypes, "DayTypeID", "DayTypeName", calRecSaving.DayTypeID);
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeName", calRecSaving.EmployeeID);
+            return View(calRecSaving);
         }
 
         // GET: CalendRecords/Edit/5

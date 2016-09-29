@@ -17,11 +17,23 @@
                 // ROWS COUNTER :
                 if (j < 1) { row.cells[0].innerHTML = i; }
                 // Columns : 0=Counter, 1=EmployeeName, 2=EmployPosition, 3=IsAWoman, 4=TimesheetNum
+
+                // WARNING MAGIC NUMBER !!!!!!
+                // WARNING MAGIC NUMBER !!!!!!
+                // WARNING MAGIC NUMBER !!!!!!
+
                 if (j > 4 && j < 36) {
                     // FILLING MONTH TABLE WITH DEFAULT 8 HOURS VALUES :
-                    if ($.trim(row.cells[j].innerHTML) == '8') {
+                    var cellsContent = $.trim(row.cells[j].innerHTML);
+
+                    if (cellsContent.length === 0 || cellsContent === '') {
+                        row.cells[j].style.backgroundColor = "#BAF5CB";
+                    }
+                    else if (cellsContent == '8') {
                         row.cells[j].style.color = "#adadad";
-                        //row.cells[j].innerHTML = 8;
+
+                    } else if (cellsContent == 'нз') {
+                        row.cells[j].style.color = "red";
                     }
                 }
             }

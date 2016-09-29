@@ -2,9 +2,7 @@
     color: black;
 }
 
-td:hover {
-    background-color:darkgrey;
-}
+tr:hover td { background-color:#FFE18F;}
 
 tr, td, th {
     background-color: white;
@@ -43,3 +41,5 @@ tr, td, th {
                 font-weight: normal;
                 padding: 0 10px;
             }
+
+

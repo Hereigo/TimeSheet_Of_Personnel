@@ -2,12 +2,6 @@
     color: black;
 }
 
-table {
-    /* TODO REFACTOR - BUT SOMTIMES HELPS */
-    margin-left: -20px;
-    /* TODO REFACTOR - BUT SOMTIMES HELPS */
-}
-
 td:hover {
     background-color:darkgrey;
 }
@@ -49,7 +43,3 @@ tr, td, th {
                 font-weight: normal;
                 padding: 0 10px;
             }
-
-table tr td:empty {
-        background-color: red;
-    }

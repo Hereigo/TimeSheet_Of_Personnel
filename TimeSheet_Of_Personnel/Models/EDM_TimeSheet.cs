@@ -14,7 +14,7 @@ namespace TimeSheet_Of_Personnel.Models
             // USE THIS FOR TEST SEEDING DB & VIEWING RESULTS :
             // Database.SetInitializer(new EDM_TimeSheet_TEST_Initializer());
 
-            Database.SetInitializer(new EDM_TimeSheet_Initializer());
+            // Database.SetInitializer(new EDM_TimeSheet_Initializer());
         }
 
         public virtual DbSet<Employee> Employees { get; set; }

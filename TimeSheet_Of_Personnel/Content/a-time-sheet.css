@@ -2,12 +2,14 @@
     color: black;
 }
 
-tr:hover td { background-color:#FFE18F;}
+tr:hover td {
+    background-color: #FFE18F;
+}
 
 tr, td, th {
     background-color: white;
     border: solid 1px black;
-    min-width:1.1em;
+    min-width: 1.1em;
     text-align: center;
     white-space: nowrap;
 }
@@ -22,6 +24,7 @@ tr, td, th {
         text-align: center;
     }
 
+    /*#region VERTICAL ROTATION */
     th.rotate {
         /* Something you can count on */
         height: 130px;
@@ -41,5 +44,4 @@ tr, td, th {
                 font-weight: normal;
                 padding: 0 10px;
             }
-
-
+/*#endregion */

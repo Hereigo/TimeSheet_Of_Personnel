@@ -35,6 +35,11 @@
                     } else if (cellsContent == 'нз') {
                         row.cells[j].style.color = "red";
                     }
+                    else if (cellsContent == 'до') {
+                        row.cells[j].style.backgroundColor = "#B2CDEB";
+                    }
+
+
                 }
             }
         }

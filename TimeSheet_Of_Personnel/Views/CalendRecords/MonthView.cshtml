@@ -6,7 +6,18 @@
 
 <link href="~/Content/a-time-sheet.css" rel="stylesheet" />
 
-<h3>@ViewBag.MonthDate.ToString("MMMM, yyyy")</h3>
+<h3>
+    @Html.ActionLink(" ", "MonthView",
+    new { year = ViewBag.MonthDate.ToString("yyyy"), month = (ViewBag.MonthDate.AddMonths(-1)).ToString("MM") },
+    new { @class = "glyphicon glyphicon-arrow-left" })
+    &nbsp;&nbsp;&nbsp;
+    @ViewBag.MonthDate.ToString("MMMM, yyyy")
+    &nbsp;&nbsp;&nbsp;
+    @Html.ActionLink(" ", "MonthView",
+    new { year = ViewBag.MonthDate.ToString("yyyy"), month = (ViewBag.MonthDate.AddMonths(1)).ToString("MM") },
+    new { @class = "glyphicon glyphicon-arrow-right" })
+</h3>
+
 
 <table id="monthViewTable">
 

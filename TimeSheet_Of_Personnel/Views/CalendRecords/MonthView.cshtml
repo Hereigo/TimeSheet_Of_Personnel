@@ -32,15 +32,16 @@
         <th class="rotate"><div><span>Табельний №</span></div></th>
 
 
-        @* WRITE NUMBERS OF MONTH-DAYS ( -15 ADDITIONAL COLUMNS ) *@
+        @* WRITE NUMBERS OF MONTH-DAYS ( -16 ADDITIONAL COLUMNS ) *@
 
-        @for (int i = 1; i < (ViewBag.columns) - 15; i++)
+        @for (int i = 1; i < (ViewBag.columns) - 16; i++)
         {
             <th> <br /><br /><br /><br /><br /> @i </th>
         }
 
         <th class="rotate"><div><span>фактично відпрац.</span></div></th>
         <th class="rotate"><div><span>відпустка</span></div></th>
+        <th class="rotate"><div><span>відпустка (без вих.)</span></div></th>
         <th class="rotate"><div><span>відп.(вагіт./дог.дит)</span></div></th>
         <th class="rotate"><div><span>відп. (не оплачув.)</span></div></th>
         <th class="rotate"><div><span>відрядження</span></div></th>
@@ -73,6 +74,8 @@
         </tr>
     }
 </table>
+
+<h5 style="float:right">Всього за місяць - <b>@ViewBag.HoursCount</b> робочих годин.</h5>
 
 @section monthViewScripts{
     @Scripts.Render("~/bundles/monthView")

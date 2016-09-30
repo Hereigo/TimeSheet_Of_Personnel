@@ -14,6 +14,11 @@ tr, td, th {
     white-space: nowrap;
 }
 
+tr:last-child td {
+    
+
+}
+
     td:nth-child(2), td:nth-child(3) {
         padding-left: 3px;
         text-align: left;

@@ -31,14 +31,26 @@
                     }
                     else if (cellsContent == '8') {
                         row.cells[j].style.color = "#adadad";
-
-                    } else if (cellsContent == 'нз') {
+					}
+					else if (cellsContent == 'в') {
+                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    }
+					else if (cellsContent == 'вд') {
+                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    }
+					else if (cellsContent == 'нз') {
                         row.cells[j].style.color = "red";
+						row.cells[j].style.backgroundColor = "yellow";
                     }
                     else if (cellsContent == 'до') {
-                        row.cells[j].style.backgroundColor = "#B2CDEB";
+                        row.cells[j].style.backgroundColor = "#A7C0D4";
                     }
-
+					else if (cellsContent == 'тн') {
+                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    }
+					else if (cellsContent == 'с') {
+                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    }
 
                 }
             }

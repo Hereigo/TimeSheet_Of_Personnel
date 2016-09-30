@@ -67,7 +67,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             int shiftFromEnd = 10;
 
             int factDaysSum = 0;  //-10. Фактично відпрац.
-            int holydaysSum = 0;  // -9. Відпустка    -   В, Ч, Н, ДД
+            int vacationSum = 0;  // -9. Відпустка    -   В, Ч, Н, ДД
             int holyChildSum = 0; // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
             int holyFreeSum = 0;  // -7. Відп.(не оплач) - НБ, БЗ, ЗС
             int workTripSum = 0;  // -6. Відрядження - ВД
@@ -101,7 +101,7 @@ namespace TimeSheet_Of_Personnel.Controllers
                 if (workingEmployees[row].IsAWoman) isWomanSum++;
 
                 int factDays = daysInMon;
-                int holydays = 0;
+                int vacation = 0;
                 int holyChild = 0;
                 int holyFree = 0;
                 int workTrip = 0;
@@ -110,6 +110,7 @@ namespace TimeSheet_Of_Personnel.Controllers
                 int seminar = 0;
                 int hospital = 0;
                 int weekends = 0;
+                int notWorkYet = 0;
 
                 // START FROM 6 - WHILE DaysInMonthCount - FILL ROWS WITH - "8"
                 for (int col = firstColsShift; col < firstColsShift + daysInMon; col++)
@@ -139,6 +140,7 @@ namespace TimeSheet_Of_Personnel.Controllers
                     // COUNT DIFFERENT TYPES OF NOT-WORKING-DAYS :
                     if (rec.DayType.SymbolName == "-")
                     {
+                        notWorkYet++;
                         if (!holyDays.Contains(dayInMonth)) factDays--;
                     }
                     else if (rec.DayType.SymbolName == "в" ||
@@ -146,10 +148,10 @@ namespace TimeSheet_Of_Personnel.Controllers
                              rec.DayType.SymbolName == "н" ||
                              rec.DayType.SymbolName == "дд")
                     {
-                        holydays++;
+                        vacation++;
                         if (!holyDays.Contains(dayInMonth)) factDays--;
                     }
-                    else if (rec.DayType.SymbolName == "вп" ||
+                    else if (rec.DayType.SymbolName == "по" ||
                              rec.DayType.SymbolName == "до")
                     {
                         holyChild++;
@@ -190,7 +192,7 @@ namespace TimeSheet_Of_Personnel.Controllers
                         if (!holyDays.Contains(dayInMonth)) factDays--;
                     }
 
-                    if (holydays > 0) rows[row, colsCnt - 9] = holydays.ToString();   // -9. Відпустка    -   В, Ч, Н, ДД
+                    if (vacation > 0) rows[row, colsCnt - 9] = vacation.ToString();   // -9. Відпустка    -   В, Ч, Н, ДД
                     if (holyChild > 0) rows[row, colsCnt - 8] = holyChild.ToString(); // -8. Відп.(вагіт, дог.за дит) - ВП, ДО
                     if (holyFree > 0) rows[row, colsCnt - 7] = holyFree.ToString();   // -7. Відп.(не оплач) - НБ, БЗ, ЗС
                     if (workTrip > 0) rows[row, colsCnt - 6] = workTrip.ToString();   // -6. Відрядження - ВД
@@ -198,13 +200,27 @@ namespace TimeSheet_Of_Personnel.Controllers
                     if (unknown > 0) rows[row, colsCnt - 4] = unknown.ToString();     // -4. Незясовано - НЗ
                     if (seminar > 0) rows[row, colsCnt - 3] = seminar.ToString();     // -3. Семінар/підвищ.кваліф. - С
                     if (hospital > 0) rows[row, colsCnt - 2] = hospital.ToString();   // -2. Хвороба - ТН, НН
-                    //}                                                                     // -1. Вихідні, святкові дні
-                }
 
-                rows[row, colsCnt - 10] = factDays.ToString();                            //-10. Фактично відпрац.
+
+                }
+                weekends = daysInMon
+                        - factDays
+                        - vacation
+                        - holyChild
+                        - holyFree
+                        - workTrip
+                        - dayOff
+                        - unknown
+                        - seminar
+                        - hospital
+                        - notWorkYet;
+
+                rows[row, colsCnt - 1] = weekends.ToString();                          // -1. Вихідні, святкові дні
+
+                rows[row, colsCnt - 10] = factDays.ToString();                         //-10. Фактично відпрац.
 
                 factDaysSum += factDays;
-                holydaysSum += holydays;
+                vacationSum += vacation;
                 holyChildSum += holyChild;
                 holyFreeSum += holyFree;
                 workTripSum += workTrip;
@@ -219,7 +235,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             rows[rowsCnt - 1, 4] = isWomanSum.ToString();
 
             rows[rowsCnt - 1, colsCnt - 10] = factDaysSum.ToString();
-            rows[rowsCnt - 1, colsCnt - 9] = holydaysSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 9] = vacationSum.ToString();
             rows[rowsCnt - 1, colsCnt - 8] = holyChildSum.ToString();
             rows[rowsCnt - 1, colsCnt - 7] = holyFreeSum.ToString();
             rows[rowsCnt - 1, colsCnt - 6] = workTripSum.ToString();
@@ -227,6 +243,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             rows[rowsCnt - 1, colsCnt - 4] = unknownSum.ToString();
             rows[rowsCnt - 1, colsCnt - 3] = seminarSum.ToString();
             rows[rowsCnt - 1, colsCnt - 2] = hospitalSum.ToString();
+            rows[rowsCnt - 1, colsCnt - 1] = weekendsSum.ToString();
 
             // COUNT MATRIX SIZE FOR SOME ACTIONS IN THE VIEW :
             ViewBag.calendMatrix = rows;

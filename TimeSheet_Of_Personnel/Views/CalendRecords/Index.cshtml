@@ -4,13 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3>Не робочі дні працівника: @ViewBag.EmployeeName за @DateTime.Now.ToString("MMMM yyyy") року.</h3>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
+
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.DayType.DayTypeName)
         </th>
@@ -26,6 +28,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.ActionLink("Редагувати запис", "Edit", new { id = item.CalendRecordID })
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.DayType.DayTypeName)
         </td>
         <td>
@@ -35,9 +40,7 @@
             @Html.DisplayFor(modelItem => item.CalendRecordName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CalendRecordID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CalendRecordID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CalendRecordID })
+            @Html.ActionLink("Видалити запис", "Delete", new { id=item.CalendRecordID })
         </td>
     </tr>
 }

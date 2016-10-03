@@ -3,7 +3,7 @@
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
+/* Set padding to keep content from hitting the edges 
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 290px;
 }
 
 /* Overriding Bootstrap Framework Styles */

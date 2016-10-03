@@ -2,6 +2,16 @@
     color: black;
 }
 
+table {
+    /* 
+        TODO:
+        implement centration of table on the page !!!
+        implement centration of table on the page !!!
+        implement centration of table on the page !!!
+        */
+    margin-left: -3%;
+}
+
 tr:hover td {
     background-color: #FFE18F;
 }
@@ -14,10 +24,9 @@ tr, td, th {
     white-space: nowrap;
 }
 
-tr:last-child td {
-    
-
-}
+    tr:last-child td {
+        font-weight: bold;
+    }
 
     td:nth-child(2), td:nth-child(3) {
         padding-left: 3px;

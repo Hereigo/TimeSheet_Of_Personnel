@@ -273,13 +273,29 @@ namespace TimeSheet_Of_Personnel.Controllers
 
 
         // GET: CalendRecords
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Employee employee = db.Employees.Find(id);
+
+            ViewBag.EmployeeName = employee.EmployeeName;
+
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            //return View(calendRecord);
+
             // GET RECORDS FOR CURRENT MONTH & YEAR ONLY !!!
 
             var calendRecords = db.CalendRecords.Include(c => c.DayType).Include(c => c.Employee).
                 Where(c => c.CalendRecordName.Year == DateTime.Now.Year &&
-                c.CalendRecordName.Month == DateTime.Now.Month);
+                c.CalendRecordName.Month == DateTime.Now.Month &&
+                c.EmployeeID == id);
 
             return View(calendRecords.ToList());
         }
@@ -400,7 +416,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             {
                 db.Entry(calendRecord).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index/"+ calendRecord.EmployeeID);
             }
             ViewBag.DayTypeID = new SelectList(db.DayTypes, "DayTypeID", "DayTypeName", calendRecord.DayTypeID);
             ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeName", calendRecord.EmployeeID);

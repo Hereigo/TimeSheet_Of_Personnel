@@ -270,6 +270,7 @@
     <Content Include="Views\HolyDays\Details.cshtml" />
     <Content Include="Views\HolyDays\Edit.cshtml" />
     <Content Include="Views\HolyDays\Index.cshtml" />
+    <Content Include="Views\CalendRecords\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -62,9 +62,10 @@ namespace TimeSheet_Of_Personnel.Controllers
 
             int isWomanSum = 0;
 
-            // (daysInCurrMonth) 
-            // + 1.Num + 2.Name + 3.EditField + 4.Position + 5.IsWoman + 6.TimeSheetNum
-            int firstColsShift = 6;
+            int sevenHoursDays = 0;
+            int sixHoursDays = 0;
+            int fiveHoursDays = 0;
+            int fourHoursDays = 0;
 
             int shiftFromEnd = 12;
 
@@ -81,10 +82,8 @@ namespace TimeSheet_Of_Personnel.Controllers
             int hospital2sum = 0; // -2. Хвороба без урахування вихідних
             int weekendsSum = 0; // -1. Вихідні, святкові дні
 
-            int sevenHoursDays = 0;
-            int sixHoursDays = 0;
-            int fiveHoursDays = 0;
-            int fourHoursDays = 0;
+            // + 1.Num + 2.Name + 3.EditField + 4.Position + 5.IsWoman + 6.TimeSheetNum + 7.EditField
+            int firstColsShift = 7;
 
             int colsCnt = firstColsShift + daysInMon + shiftFromEnd;
 
@@ -98,13 +97,14 @@ namespace TimeSheet_Of_Personnel.Controllers
             // - MINUS ONE ROW FOR SUMMARY :
             for (int row = 0; row < rowsCnt - 1; row++)
             {
-                // FILL FIRST 5 COLUMNS :
+                // firstColsShift - FILL FIRST 7 COLUMNS :
                 rows[row, 0] = (row + 1).ToString();
                 rows[row, 1] = workingEmployees[row].EmployeeName;
                 rows[row, 2] = ""; // EDIT BUTTON FIELD
                 rows[row, 3] = workingEmployees[row].EmployPosition;
                 rows[row, 4] = workingEmployees[row].IsAWoman ? "+" : "";
                 rows[row, 5] = workingEmployees[row].EmployeeID.ToString();
+                rows[row, 6] = ""; // EDIT BUTTON FIELD 2
 
                 // COUNT WOMEN
                 if (workingEmployees[row].IsAWoman) isWomanSum++;
@@ -248,7 +248,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             }
 
             // ADD SUMMARY :
-            rows[rowsCnt - 1, 4] = isWomanSum.ToString();
+            rows[rowsCnt - 1, 5] = isWomanSum.ToString();
 
             int wholeMonthHours = factDaysSum * 8;
             // 8-hours Differences - Substruction :
@@ -432,31 +432,31 @@ namespace TimeSheet_Of_Personnel.Controllers
             return View(calendRecord);
         }
 
-        //// GET: CalendRecords/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    CalendRecord calendRecord = db.CalendRecords.Find(id);
-        //    if (calendRecord == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(calendRecord);
-        //}
+        // GET: CalendRecords/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CalendRecord calendRecord = db.CalendRecords.Find(id);
+            if (calendRecord == null)
+            {
+                return HttpNotFound();
+            }
+            return View(calendRecord);
+        }
 
-        //// POST: CalendRecords/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    CalendRecord calendRecord = db.CalendRecords.Find(id);
-        //    db.CalendRecords.Remove(calendRecord);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: CalendRecords/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            CalendRecord calendRecord = db.CalendRecords.Find(id);
+            db.CalendRecords.Remove(calendRecord);
+            db.SaveChanges();
+            return RedirectToAction("Index/"+ calendRecord.EmployeeID);
+        }
 
         protected override void Dispose(bool disposing)
         {

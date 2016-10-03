@@ -23,15 +23,16 @@
     <tr>
         <th>№</th>
         <th>П.І.Б.</th>
-        <th class="rotate"><div><span>редагувати дні</span></div></th>
+        <th class="rotate"><div><span>додати дні</span></div></th>
         <th>Посада</th>
         <th class="rotate"><div><span>жінка</span></div></th>
         <th class="rotate"><div><span>Табельний №</span></div></th>
+        <th class="rotate"><div><span>редагувати запис</span></div></th>
 
 
-        @* WRITE NUMBERS OF MONTH-DAYS ( -17 ADDITIONAL COLUMNS ) *@
+        @* WRITE NUMBERS OF MONTH-DAYS ( -18 ADDITIONAL COLUMNS ) *@
 
-        @for (int i = 1; i < (ViewBag.columns) - 17; i++)
+        @for (int i = 1; i < (ViewBag.columns) - 18; i++)
         {
             <th> <br /><br /><br /><br /><br /> @i </th>
         }
@@ -56,43 +57,23 @@
         <tr>
             @for (int k = 0; k < ViewBag.columns; k++)
             {
-                if (i != ViewBag.rows - 1)
+                if (k == 2)
                 {
-                    if (k == 2)
-                    {
-                        <td>
-                            @Html.ActionLink(" ", "Create", "CalendRecords", new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-pencil" })
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            @ViewBag.calendMatrix[i, k]
-                        </td>
-                    }
+                    <td>
+                        @Html.ActionLink(" ", "Create", "CalendRecords", new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-plus" })
+                    </td>
                 }
-                else   //IF ROW IS LAST
+                else if (k == 6)
                 {
-                    if (k == 0)
-                    {
-                        <td colspan="4" style="text-align:left"></td>
-                    }
-                    else if (k > 3)
-                    {
-                        <td>
-                            @ViewBag.calendMatrix[i, k]
-                        </td>
-                    }
-                    @*else if (k == 5)
-                        {
-                            <td colspan="31"> </td>
-                        }
-                        else if (k > 35)
-                        {
-                            <td>
-                                @ViewBag.calendMatrix[i, k]
-                            </td>
-                        }*@
+                    <td>
+                        @Html.ActionLink(" ", "Index", "CalendRecords", new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-pencil" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @ViewBag.calendMatrix[i, k]
+                    </td>
                 }
             }
         </tr>

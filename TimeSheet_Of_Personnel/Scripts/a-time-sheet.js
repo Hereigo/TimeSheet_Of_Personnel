@@ -7,11 +7,29 @@
     // CELL VALUES COUNTERS :
     var table = document.getElementById("monthViewTable");
 
+    // TODO:
+    // REFACTORE ME !
+    // REFACTORE ME !
+    // REFACTORE ME !
+    var lastRow = table.rows.length - 1;
+
     // FOREACH ALL CELLS IN TABLE :
     for (var i = 0, row; row = table.rows[i]; i++) {
 
+        if (i == lastRow) {
+            for (var j = 0, col; col = row.cells[j]; j++) {
+
+                // TODO:
+                // REFACTORE ME !
+                // REFACTORE ME !
+                // REFACTORE ME !
+                if (j < 5 || j == 6) {
+                    row.cells[j].innerHTML = "";
+                }
+            }
+        }
         // SKIP HEADER ROW :
-        if (i > 0) {
+        else if (i > 0) {
 
             for (var j = 0, col; col = row.cells[j]; j++) {
                 // ROWS COUNTER :
@@ -21,8 +39,13 @@
                 // WARNING MAGIC NUMBER !!!!!!
                 // WARNING MAGIC NUMBER !!!!!!
                 // WARNING MAGIC NUMBER !!!!!!
+                // WARNING MAGIC NUMBER !!!!!!
+                // WARNING MAGIC NUMBER !!!!!!
+                // WARNING MAGIC NUMBER !!!!!!
+                // WARNING MAGIC NUMBER !!!!!!
 
-                if (j > 4 && j < 37) {
+                if (j > 6 && j < 38) {
+
                     // FILLING MONTH TABLE WITH DEFAULT 8 HOURS VALUES :
                     var cellsContent = $.trim(row.cells[j].innerHTML);
 

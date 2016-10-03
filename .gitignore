@@ -3,10 +3,8 @@
 
 Git_Ignore_*
 EDM_TimeSheet_Initializer.cs
-/TimeSheet_Of_Personnel/Web.Release.config
 Web.Release.config
 favicon.*
-/TimeSheet_Of_Personnel/favicon.ico
 
 # User-specific files
 *.suo

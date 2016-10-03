@@ -9,7 +9,7 @@ table {
         implement centration of table on the page !!!
         implement centration of table on the page !!!
         */
-    margin-left: -5%;
+    margin-left: -7%;
 }
 
 tr:hover td {
@@ -41,13 +41,13 @@ tr, td, th {
     /*#region VERTICAL ROTATION */
     th.rotate {
         /* Something you can count on */
-        height: 130px;
+        height: 133px;
     }
 
         th.rotate > div {
             transform:
             /* Magic Numbers */
-            translate(0px, 62px)
+            translate(0px, 65px)
             /* 45 is really 360 - 45 */
             /* rotate(315deg); */
             rotate(-90deg);

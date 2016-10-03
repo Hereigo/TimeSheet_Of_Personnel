@@ -3,7 +3,10 @@
 
 Git_Ignore_*
 EDM_TimeSheet_Initializer.cs
-favicon.ico
+/TimeSheet_Of_Personnel/Web.Release.config
+Web.Release.config
+favicon.*
+/TimeSheet_Of_Personnel/favicon.ico
 
 # User-specific files
 *.suo
@@ -254,4 +257,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-/TimeSheet_Of_Personnel/favicon.rar

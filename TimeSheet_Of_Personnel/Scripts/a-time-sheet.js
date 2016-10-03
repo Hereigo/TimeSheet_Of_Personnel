@@ -22,7 +22,7 @@
                 // WARNING MAGIC NUMBER !!!!!!
                 // WARNING MAGIC NUMBER !!!!!!
 
-                if (j > 4 && j < 36) {
+                if (j > 4 && j < 37) {
                     // FILLING MONTH TABLE WITH DEFAULT 8 HOURS VALUES :
                     var cellsContent = $.trim(row.cells[j].innerHTML);
 

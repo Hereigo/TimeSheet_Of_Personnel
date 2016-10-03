@@ -29,9 +29,9 @@
         <th class="rotate"><div><span>Табельний №</span></div></th>
 
 
-        @* WRITE NUMBERS OF MONTH-DAYS ( -16 ADDITIONAL COLUMNS ) *@
+        @* WRITE NUMBERS OF MONTH-DAYS ( -17 ADDITIONAL COLUMNS ) *@
 
-        @for (int i = 1; i < (ViewBag.columns) - 16; i++)
+        @for (int i = 1; i < (ViewBag.columns) - 17; i++)
         {
             <th> <br /><br /><br /><br /><br /> @i </th>
         }
@@ -46,6 +46,7 @@
         <th class="rotate"><div><span>неявк з незяс.прич.</span></div></th>
         <th class="rotate"><div><span>підвищ.кваліфік.</span></div></th>
         <th class="rotate"><div><span>хвороба</span></div></th>
+        <th class="rotate"><div><span>хвороба (без вих.)</span></div></th>
         <th class="rotate"><div><span>вихідні,святкові дні</span></div></th>
 
     </tr>

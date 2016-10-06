@@ -19,11 +19,6 @@ namespace TimeSheet_Of_Personnel.Controllers
             int currYear = DateTime.Now.Year;
             int currMonth = DateTime.Now.Month;
 
-            // TODO :
-            // NOT IMPLEMENTED YET !!!
-            // NOT IMPLEMENTED YET !!!
-            // NOT IMPLEMENTED YET !!!
-            // NOT IMPLEMENTED YET !!!
             if (year.HasValue && month.HasValue)
             {
                 currYear = Convert.ToInt32(year);
@@ -37,7 +32,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             DateTime firstDayOfMonth = new DateTime(currYear, currMonth, 01);
             DateTime lastDayOfMonth = new DateTime(currYear, currMonth, daysInMon);
 
-            // EMPLOYEES with WORK.END == NULL OR >= firstDayOfMonth :
+            // Get EMPLOYEES with WORK.END == NULL OR >= firstDayOfMonth :
 #if DEBUG
             List<Employee> workingEmployees = (from e in db.Employees
                                                where e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth
@@ -248,7 +243,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             }
 
             // ADD SUMMARY :
-            rows[rowsCnt - 1, 5] = isWomanSum.ToString();
+            rows[rowsCnt - 1, 4] = isWomanSum.ToString();
 
             int wholeMonthHours = factDaysSum * 8;
             // 8-hours Differences - Substruction :

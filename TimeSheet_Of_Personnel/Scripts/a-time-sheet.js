@@ -23,7 +23,7 @@
                 // REFACTORE ME !
                 // REFACTORE ME !
                 // REFACTORE ME !
-                if (j < 5 || j == 6) {
+                if (j < 4 || j == 6) {
                     row.cells[j].innerHTML = "";
                 }
             }
@@ -55,26 +55,24 @@
                     else if (cellsContent == '8') {
                         row.cells[j].style.color = "#adadad";
                     }
-                    else if (cellsContent == 'в') {
-                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    else if (cellsContent == '7') {
+                        row.cells[j].style.fontWeight = "bold";
                     }
-                    else if (cellsContent == 'вд') {
-                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    else if (cellsContent == '6') {
+                        row.cells[j].style.fontWeight = "bold";
+                    }
+                    else if (cellsContent == '5') {
+                        row.cells[j].style.fontWeight = "bold";
+                    }
+                    else if (cellsContent == '-') {
+                    }
+                    else if (cellsContent == 'по') {
                     }
                     else if (cellsContent == 'нз') {
                         row.cells[j].style.color = "red";
                         row.cells[j].style.backgroundColor = "yellow";
                     }
-                    else if (cellsContent == 'до') {
-                        row.cells[j].style.backgroundColor = "#A7C0D4";
-                    }
-                    else if (cellsContent == 'тн') {
-                        row.cells[j].style.backgroundColor = "#A7C0D4";
-                    }
-                    else if (cellsContent == 'с') {
-                        row.cells[j].style.backgroundColor = "#A7C0D4";
-                    }
-                    else if (cellsContent == 'ч') {
+                    else {
                         row.cells[j].style.backgroundColor = "#A7C0D4";
                     }
                 }

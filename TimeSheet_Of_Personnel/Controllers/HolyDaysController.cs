@@ -14,6 +14,20 @@ namespace TimeSheet_Of_Personnel.Controllers
     {
         private EDM_TimeSheet db = new EDM_TimeSheet();
 
+        public ActionResult ViewHolyDaysNames()
+        {
+            List<string> holydNamesEnums = new List<string>();
+
+            foreach (string item in Enum.GetNames(typeof(HolyDaysNamesEnum)))
+            {
+                holydNamesEnums.Add(item);
+            }
+
+            ViewBag.HolydNames = holydNamesEnums;
+
+            return View();
+        }
+
         // GET: HolyDays
         public ActionResult Index()
         {

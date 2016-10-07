@@ -33,17 +33,11 @@ namespace TimeSheet_Of_Personnel.Models
         [Description("Трійця")]
         Трійця
     }
-
-
     // TODO:
-
-    // IMPLEMENT ATTRIBUTE_DESCRIPTION FOR ENUM !!!
     // IMPLEMENT ATTRIBUTE_DESCRIPTION FOR ENUM !!!
     // IMPLEMENT ATTRIBUTE_DESCRIPTION FOR ENUM !!!
     // IMPLEMENT ATTRIBUTE_DESCRIPTION FOR ENUM !!!
 
-    // using System;
-    // using System.Reflection;
     public static class EnumHelper
     {
         /// <summary>

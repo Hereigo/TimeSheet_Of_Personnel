@@ -292,7 +292,6 @@ namespace TimeSheet_Of_Personnel.Controllers
             {
                 return HttpNotFound();
             }
-            //return View(calendRecord);
 
             // GET RECORDS FOR CURRENT MONTH & YEAR ONLY !!!
 
@@ -317,6 +316,54 @@ namespace TimeSheet_Of_Personnel.Controllers
                 return HttpNotFound();
             }
             return View(calendRecord);
+        }
+
+        // GET SHORT-DAY (BEFORE HOLYDAYS USUALLY) :
+        public ActionResult AddShortDay(DateTime? shortDayDate)
+        {
+            if (shortDayDate == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            DateTime dayForChange = Convert.ToDateTime(shortDayDate);
+
+            int currYr = dayForChange.Year;
+            int currMon = dayForChange.Month;
+
+            int lastMonDay = DateTime.DaysInMonth(currYr, currMon);
+
+            // TODO:
+            // REFACTORE THIS !!!
+            // REFACTORE THIS !!!
+            // REFACTORE THIS !!!
+
+            var actualEmplo = (from e in db.Employees
+                               where e.WorkStart <= new DateTime(currYr, currMon, lastMonDay) &&
+                               e.WorkEnd == null || e.WorkEnd >= new DateTime(currYr, currMon, 1)
+                               select e).ToList();
+
+            foreach (var item in actualEmplo)
+            {
+                CalendRecord rec = (from r in db.CalendRecords
+                                    where r.CalendRecordName == dayForChange && r.EmployeeID == item.EmployeeID
+                                    select r).FirstOrDefault();
+
+                // IF THIS DAY NOS NOT RECORD YET :
+                if (rec == null)
+                {
+                    // SET - 7 HOURS FOR THIS DAY (BECAUSE OF SHORT DAY) :
+                    db.CalendRecords.Add(new CalendRecord
+                    {
+                        CalendRecordName = dayForChange,
+                        EmployeeID = item.EmployeeID,
+                        DayTypeID = 7
+                    });
+                }
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("MonthView");
         }
 
         // GET: CalendRecords/Create
@@ -420,7 +467,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             {
                 db.Entry(calendRecord).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index/"+ calendRecord.EmployeeID);
+                return RedirectToAction("Index/" + calendRecord.EmployeeID);
             }
             ViewBag.DayTypeID = new SelectList(db.DayTypes, "DayTypeID", "DayTypeName", calendRecord.DayTypeID);
             ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "EmployeeName", calendRecord.EmployeeID);
@@ -450,7 +497,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             CalendRecord calendRecord = db.CalendRecords.Find(id);
             db.CalendRecords.Remove(calendRecord);
             db.SaveChanges();
-            return RedirectToAction("Index/"+ calendRecord.EmployeeID);
+            return RedirectToAction("Index/" + calendRecord.EmployeeID);
         }
 
         protected override void Dispose(bool disposing)

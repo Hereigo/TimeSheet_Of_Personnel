@@ -8,6 +8,8 @@ table {
         implement centration of table on the page !!!
         implement centration of table on the page !!!
         implement centration of table on the page !!!
+        implement centration of table on the page !!!
+        implement centration of table on the page !!!
         */
     margin-left: -7%;
 }
@@ -59,3 +61,48 @@ tr, td, th {
                 padding: 0 10px;
             }
 /*#endregion */
+
+#formBox {
+    height: 100%;
+    width: 100%;
+    opacity: .95;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: #337AB7;
+    display: none;
+    overflow: auto;
+}
+
+div#hiddenForm {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    margin-left: -202px;
+}
+
+#postForm {
+    max-width: 300px;
+    max-height: 250px;
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+    #postForm p {
+        color: black;
+        font-weight: bold;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+#closeFormBtn {
+    float: right;
+    margin-left: 5px;
+    color: black;
+}
+
+#chkFrmBtn {
+    float: right;
+    margin-top: -35px;
+    margin-right: -30px;
+}

@@ -2,11 +2,16 @@
 
 @{
     ViewBag.Title = "MonthView";
+    int today = DateTime.Now.Day;
 }
 
 <link href="~/Content/a-time-sheet.css" rel="stylesheet" />
 
-<h3>
+@section monthViewForm{
+    @Scripts.Render("~/bundles/monthViewForm")
+}
+
+<h3 style="text-transform:uppercase;margin-top:10px;">
     @Html.ActionLink(" ", "MonthView",
     new { year = ViewBag.MonthDate.ToString("yyyy"), month = (ViewBag.MonthDate.AddMonths(-1)).ToString("MM") },
     new { @class = "glyphicon glyphicon-arrow-left" })
@@ -18,84 +23,7 @@
     new { @class = "glyphicon glyphicon-arrow-right" })
 </h3>
 
-<style>
-    #formBox {
-        height: 100%;
-        width: 100%;
-        opacity: .96;
-        top: 0;
-        left: 0;
-        position: fixed;
-        background-color: #337AB7;
-        display: none;
-        /*overflow: auto;*/
-    }
-
-    div#hiddenForm {
-        position: absolute;
-        left: 50%;
-        top: 40%;
-        margin-left: -202px;
-    }
-
-    #postForm {
-        max-width: 300px;
-        max-height: 250px;
-        padding: 30px;
-        border: 2px solid black;
-        border-radius: 10px;
-    }
-
-        #postForm p {
-            color: black;
-            font-weight: bold;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
-
-    #closeFormBtn {
-        float: right;
-        margin-left: 5px;
-        color: black;
-    }
-</style>
-
-<script>
-    function showForm() {
-        document.getElementById('formBox').style.display = 'block';
-    }
-    function hideForm() {
-        document.getElementById('formBox').style.display = 'none';
-    }
-    function checkForm() {
-        var dateField = document.getElementById('shortDayDate').value;
-
-        if (isValidDate(dateField)) {
-
-            document.getElementById('postForm').submit();
-
-        } else {
-            alert("Не вірно вказано дату!");
-        }
-
-    }
-    function isValidDate(s) {
-        var bits = s.split('/');
-        var y = bits[2], m = bits[1], d = bits[0];
-        // Assume not leap year by default (note zero index for Jan)
-        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        // If evenly divisible by 4 and not evenly divisible by 100,
-        // or is evenly divisible by 400, then a leap year
-        if ((!(y % 4) && y % 100) || !(y % 400)) {
-            daysInMonth[1] = 29;
-        }
-        return d <= daysInMonth[--m]
-    }
-</script>
-
-<span style="float:right; margin-top:-40px">
-    <input type="button" value="= BUTTON =" onclick="showForm()" />
-</span>
-
+<input id="chkFrmBtn" type="button" value="Додати скорочений день" onclick="showForm()" />
 
 <div id="formBox">
     <div id="hiddenForm">
@@ -114,7 +42,6 @@
 
 
 <table id="monthViewTable">
-
     <tr>
         <th>№</th>
         <th>П.І.Б.</th>
@@ -124,12 +51,18 @@
         <th class="rotate"><div><span>Табельний №</span></div></th>
         <th class="rotate"><div><span>редагувати запис</span></div></th>
 
-
         @* WRITE NUMBERS OF MONTH-DAYS ( -18 ADDITIONAL COLUMNS ) *@
 
         @for (int i = 1; i < (ViewBag.columns) - 18; i++)
         {
-            <th> <br /><br /><br /><br /><br /> @i </th>
+            if (i == (today))
+            {
+                <th style="background-color:#FFE6A1;"> <br /><br /><br /><br /><br /> @i </th>
+            }
+            else
+            {
+                <th> <br /><br /><br /><br /><br /> @i </th>
+            }
         }
 
         <th class="rotate"><div><span>фактично відпрац.</span></div></th>
@@ -155,13 +88,27 @@
                 if (k == 2)
                 {
                     <td>
-                        @Html.ActionLink(" ", "Create", "CalendRecords", new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-plus" })
+                        @Html.ActionLink(" ", "Create", "CalendRecords",
+                       new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-plus" })
                     </td>
                 }
                 else if (k == 6)
                 {
                     <td>
-                        @Html.ActionLink(" ", "Index", "CalendRecords", new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-pencil" })
+                        @Html.ActionLink(" ", "Index", "CalendRecords",
+                       new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-pencil" })
+                    </td>
+                }
+                else if (k == (today + 6))
+                {
+                    <td class="todayCol">
+                        @ViewBag.calendMatrix[i, k]
+                    </td>
+                }
+                else if (k > (ViewBag.columns - 13))
+                {
+                    <td class="sumCol">
+                        @ViewBag.calendMatrix[i, k]
                     </td>
                 }
                 else

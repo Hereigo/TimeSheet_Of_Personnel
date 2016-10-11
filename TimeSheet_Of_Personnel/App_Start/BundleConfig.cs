@@ -44,6 +44,9 @@ namespace TimeSheet_Of_Personnel
 
             bundles.Add(new StyleBundle("~/Content/monthView").Include(
                     "~/Content/a-time-sheet.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/monthViewForm").Include(
+          "~/Scripts/a-time-sheet-form.js"));
         }
     }
 }

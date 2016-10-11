@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("monthViewForm", false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,12 +24,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="btn btn-default">@Html.ActionLink(DateTime.Now.ToString("MMMM").ToUpper(), "MonthView", "CalendRecords")</li>
+                    <li class="btn btn-default">@Html.ActionLink(DateTime.Now.ToString("MMMM (yyyy)").ToUpper(), "MonthView", "CalendRecords")</li>
                     <li class="btn btn-default menu">@Html.ActionLink("Працівники", "Index", "Employees")</li>
                     <li class="btn btn-default menu">@Html.ActionLink("Довідник днів", "Index", "DayTypes")</li>
                     <li class="btn btn-default menu">@Html.ActionLink("Вихідні та святкові", "Index", "HolyDays")</li>
 
-                    <li class="btn btn-default menu">@Html.ActionLink("Скорочений день", "AddShortDay", "CalendRecords")</li>
+                    @*<li class="btn btn-default menu">@Html.ActionLink("", "AddShortDay", "CalendRecords")</li>*@
 
                 </ul>
                 @*<p class="nav navbar-text navbar-right">Доброго дня, @User.Identity.Name!</p>*@
@@ -43,12 +44,12 @@
         </footer>
     </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jqueryui")
-        
-        @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
 
-        @RenderSection("monthViewScripts", required: false)
+    @RenderSection("scripts", required: false)
+
+    @RenderSection("monthViewScripts", required: false)
 </body>
 </html>

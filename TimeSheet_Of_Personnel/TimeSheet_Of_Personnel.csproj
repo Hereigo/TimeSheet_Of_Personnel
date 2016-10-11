@@ -213,6 +213,7 @@
     <None Include="Properties\PublishProfiles\164__KADRY.pubxml" />
     <Content Include="Scripts\a-datapicker-ua.js" />
     <Content Include="Scripts\a-datapicker-ua_HowTo.txt" />
+    <Content Include="Scripts\a-time-sheet-form.js" />
     <Content Include="Scripts\a-time-sheet-OLD.js" />
     <Content Include="Scripts\a-time-sheet.js" />
     <Content Include="Scripts\bootstrap.js" />

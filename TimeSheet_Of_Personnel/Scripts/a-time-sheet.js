@@ -7,6 +7,10 @@
     // CELL VALUES COUNTERS :
     var table = document.getElementById("monthViewTable");
 
+    function hasClass(element, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    }
+
     // TODO:
     // REFACTORE ME !
     // REFACTORE ME !
@@ -28,7 +32,7 @@
                 }
             }
         }
-        // SKIP HEADER ROW :
+            // SKIP HEADER ROW :
         else if (i > 0) {
 
             for (var j = 0, col; col = row.cells[j]; j++) {
@@ -46,34 +50,42 @@
 
                 if (j > 6 && j < 38) {
 
-                    // FILLING MONTH TABLE WITH DEFAULT 8 HOURS VALUES :
-                    var cellsContent = $.trim(row.cells[j].innerHTML);
+                    if (hasClass(row.cells[j], 'todayCol')) {
+                        row.cells[j].style.backgroundColor = "#FFE6A1";
+                    }
 
-                    if (cellsContent.length === 0 || cellsContent === '') {
-                        row.cells[j].style.backgroundColor = "#BAF5CB";
-                    }
-                    else if (cellsContent == '8') {
-                        row.cells[j].style.color = "#adadad";
-                    }
-                    else if (cellsContent == '7') {
-                        row.cells[j].style.fontWeight = "bold";
-                    }
-                    else if (cellsContent == '6') {
-                        row.cells[j].style.fontWeight = "bold";
-                    }
-                    else if (cellsContent == '5') {
-                        row.cells[j].style.fontWeight = "bold";
-                    }
-                    else if (cellsContent == '-') {
-                    }
-                    else if (cellsContent == 'по') {
-                    }
-                    else if (cellsContent == 'нз') {
-                        row.cells[j].style.color = "red";
-                        row.cells[j].style.backgroundColor = "yellow";
-                    }
-                    else {
-                        row.cells[j].style.backgroundColor = "#A7C0D4";
+                    // IF CURRENT COLUMN IS NOT A SUMMARY FIELD :
+                    if (!hasClass(row.cells[j], 'sumCol')) {
+
+                        // FILLING MONTH TABLE WITH DEFAULT 8 HOURS VALUES :
+                        var cellsContent = $.trim(row.cells[j].innerHTML);
+
+                        if (cellsContent.length === 0 || cellsContent === '') {
+                            row.cells[j].style.backgroundColor = "#BAF5CB";
+                        }
+                        else if (cellsContent == '8') {
+                            row.cells[j].style.color = "#adadad";
+                        }
+                        else if (cellsContent == '7') {
+                            row.cells[j].style.fontWeight = "bold";
+                        }
+                        else if (cellsContent == '6') {
+                            row.cells[j].style.fontWeight = "bold";
+                        }
+                        else if (cellsContent == '5') {
+                            row.cells[j].style.fontWeight = "bold";
+                        }
+                        else if (cellsContent == '-') {
+                        }
+                        else if (cellsContent == 'по') {
+                        }
+                        else if (cellsContent == 'нз') {
+                            row.cells[j].style.color = "red";
+                            row.cells[j].style.backgroundColor = "yellow";
+                        }
+                        else {
+                            row.cells[j].style.backgroundColor = "#A7C0D4";
+                        }
                     }
                 }
             }

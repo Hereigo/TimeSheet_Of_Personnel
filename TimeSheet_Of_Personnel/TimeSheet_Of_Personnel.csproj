@@ -262,7 +262,7 @@
     <Content Include="Views\DayTypes\Details.cshtml" />
     <Content Include="Views\DayTypes\Edit.cshtml" />
     <Content Include="Views\DayTypes\Index.cshtml" />
-    <Content Include="Views\CalendRecords\MonthView.cshtml" />
+    <Content Include="Views\CalendRecords\MonthView_PROM.cshtml" />
     <Content Include="Views\HolyDays\Create.cshtml" />
     <Content Include="Views\HolyDays\Delete.cshtml" />
     <Content Include="Views\HolyDays\Details.cshtml" />
@@ -270,6 +270,7 @@
     <Content Include="Views\HolyDays\Index.cshtml" />
     <Content Include="Views\CalendRecords\Delete.cshtml" />
     <Content Include="Views\HolyDays\ViewHolyDaysNames.cshtml" />
+    <Content Include="Views\CalendRecords\MonthView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

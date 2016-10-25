@@ -11,10 +11,6 @@
         return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
     }
 
-    // TODO:
-    // REFACTORE ME !
-    // REFACTORE ME !
-    // REFACTORE ME !
     var lastRow = table.rows.length - 1;
 
     // FOREACH ALL CELLS IN TABLE :
@@ -30,6 +26,17 @@
                 if (j < 4 || j == 6) {
                     row.cells[j].innerHTML = "";
                 }
+
+                // SET EVERY TH COLUML WIDTH (HEIGHT)
+                // AS EVERY LASTROWS COLUMN WIDTH :
+                var lastRowCellWidth = table.rows[i].cells[j].offsetWidth;
+
+                if (j == 5) {
+                    table.rows[0].cells[j].style.width = "26px";
+                } else {
+                    table.rows[0].cells[j].style.width = lastRowCellWidth + "px";
+                }
+
             }
         }
             // SKIP HEADER ROW :

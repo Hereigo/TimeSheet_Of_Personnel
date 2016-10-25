@@ -37,7 +37,7 @@ namespace TimeSheet_Of_Personnel.Controllers
             List<Employee> workingEmployees = (from e in db.Employees
                                                where e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth
                                                orderby e.EmployeeName
-                                               select e).Take(12).ToList();
+                                               select e).Take(30).ToList();
 #else
             List<Employee> workingEmployees = (from e in db.Employees
                                               where e.WorkEnd == null || e.WorkEnd >= firstDayOfMonth

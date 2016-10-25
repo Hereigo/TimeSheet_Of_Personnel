@@ -1,0 +1,129 @@
+﻿@*@model IEnumerable<TimeSheet_Of_Personnel.Models.EmploMonthRow>*@
+
+@{
+    ViewBag.Title = "MonthView";
+    int today = DateTime.Now.Day;
+}
+
+<link href="~/Content/a-time-sheet.css" rel="stylesheet" />
+
+@section monthViewForm{
+    @Scripts.Render("~/bundles/monthViewForm")
+}
+
+<h3 style="text-transform:uppercase;margin-top:10px;">
+    @Html.ActionLink(" ", "MonthView",
+    new { year = ViewBag.MonthDate.ToString("yyyy"), month = (ViewBag.MonthDate.AddMonths(-1)).ToString("MM") },
+    new { @class = "glyphicon glyphicon-arrow-left" })
+    &nbsp;&nbsp;&nbsp;
+    @ViewBag.MonthDate.ToString("MMMM, yyyy")
+    &nbsp;&nbsp;&nbsp;
+    @Html.ActionLink(" ", "MonthView",
+    new { year = ViewBag.MonthDate.ToString("yyyy"), month = (ViewBag.MonthDate.AddMonths(1)).ToString("MM") },
+    new { @class = "glyphicon glyphicon-arrow-right" })
+</h3>
+
+<input id="chkFrmBtn" type="button" value="Додати скорочений день" onclick="showForm()" />
+
+<div id="formBox">
+    <div id="hiddenForm">
+        <form action="~/CalendRecords/AddShortDay" id="postForm" name="postForm" method="post">
+            <input id="closeFormBtn" type="button" class="btn btn-danger" value="X" onclick="hideForm()" />
+            <p>
+                Додаємо сокрочений день (7 годин) у зазначену нижче дату.
+                Будьте уважні!
+            </p>
+            <input class="form-control text-box" data-val="true" id="shortDayDate" name="shortDayDate" type="date" placeholder="&nbsp;Дата скороченого дня." />
+            <br />
+            <input type="button" class="btn btn-default" value="Додати скорочений день" onclick="checkForm()" />
+        </form>
+    </div>
+</div>
+
+
+<table id="monthViewTable">
+    <tr>
+        <th>№</th>
+        <th>П.І.Б.</th>
+        <th class="rotate"><div><span>додати дні</span></div></th>
+        <th>Посада</th>
+        <th class="rotate"><div><span>жінка</span></div></th>
+        <th class="rotate"><div><span>Табельний №</span></div></th>
+        <th class="rotate"><div><span>редагувати запис</span></div></th>
+
+        @* WRITE NUMBERS OF MONTH-DAYS ( -18 ADDITIONAL COLUMNS ) *@
+
+        @for (int i = 1; i < (ViewBag.columns) - 18; i++)
+        {
+            if (i == (today))
+            {
+                <th style="background-color:#FFE6A1;"> <br /><br /><br /><br /><br /> @i </th>
+            }
+            else
+            {
+                <th> <br /><br /><br /><br /><br /> @i </th>
+            }
+        }
+
+        <th class="rotate"><div><span>фактично відпрац.</span></div></th>
+        <th class="rotate"><div><span>відпустка</span></div></th>
+        <th class="rotate"><div><span>відпустка (без вих.)</span></div></th>
+        <th class="rotate"><div><span>відп.(вагіт./дог.дит)</span></div></th>
+        <th class="rotate"><div><span>відп. (не оплачув.)</span></div></th>
+        <th class="rotate"><div><span>відрядження</span></div></th>
+        <th class="rotate"><div><span>відгул</span></div></th>
+        <th class="rotate"><div><span>неявк з незяс.прич.</span></div></th>
+        <th class="rotate"><div><span>підвищ.кваліфік.</span></div></th>
+        <th class="rotate"><div><span>хвороба</span></div></th>
+        <th class="rotate"><div><span>хвороба (без вих.)</span></div></th>
+        <th class="rotate"><div><span>вихідні,святкові дні</span></div></th>
+
+    </tr>
+
+    @for (int i = 0; i < ViewBag.rows; i++)
+    {
+        <tr>
+            @for (int k = 0; k < ViewBag.columns; k++)
+            {
+                if (k == 2)
+                {
+                    <td>
+                        @Html.ActionLink(" ", "Create", "CalendRecords",
+                       new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-plus" })
+                    </td>
+                }
+                else if (k == 6)
+                {
+                    <td>
+                        @Html.ActionLink(" ", "Index", "CalendRecords",
+                       new { id = ViewBag.calendMatrix[i, 5] }, new { @class = "glyphicon glyphicon-pencil" })
+                    </td>
+                }
+                else if (k == (today + 6))
+                {
+                    <td class="todayCol">
+                        @ViewBag.calendMatrix[i, k]
+                    </td>
+                }
+                else if (k > (ViewBag.columns - 13))
+                {
+                    <td class="sumCol">
+                        @ViewBag.calendMatrix[i, k]
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @ViewBag.calendMatrix[i, k]
+                    </td>
+                }
+            }
+        </tr>
+    }
+</table>
+
+<h5 style="float:right">Всього за місяць - <b>@ViewBag.HoursCount</b> робочих годин.</h5>
+
+@section monthViewScripts{
+    @Scripts.Render("~/bundles/monthView")
+}
